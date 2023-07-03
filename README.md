@@ -44,3 +44,18 @@ fields :
 * password_confirmation
 NOTE: User will get 4 digit otp in email.
 ``````````
+
+* Verify Api (api/v1/auth/verify)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/auth/verify
+fields : 
+* email
+* otp
+``````````
+
+* Reset Otp Api (api/v1/auth/verify)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/auth/reset
+fields : 
+* email
+``````````
