@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PostSystemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth', 'as'=> 'admin.'], function() {
     Route::get('dashboard', [DashboardController::Class,'index'])->name('dashboard');
+    Route::resource('posts', PostSystemController::class);
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
