@@ -13,8 +13,8 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
-          Menu::create(['name' => 'Posts System']);
-          Menu::create(['name' => 'Death Notices']);
-          Menu::create(['name' => 'Directory listings']);
+          Menu::create(['name' => 'Posts System', 'icon_class' => 'fa-table']);
+          Menu::create(['name' => 'Death Notices', 'icon_class' => 'fa-columns']);
+          Menu::create(['name' => 'Directory listings','icon_class' => 'fa-book']);
     }
 }

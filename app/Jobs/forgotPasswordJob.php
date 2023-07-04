@@ -9,13 +9,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\forgotPasswordMail;
+use App\Mail\VerifyOtpMail;
 
-class VerifyUser implements ShouldQueue
+class forgotPasswordJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-       public $name,$email,$otp;
-
+    public $name,$email,$otp;
     /**
      * Create a new job instance.
      */
@@ -31,6 +30,6 @@ class VerifyUser implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new forgotPasswordMail($this->name,$this->email,$this->otp));
+        Mail::to($this->email)->send(new VerifyOtpMail($this->name,$this->email,$this->otp));
     }
 }

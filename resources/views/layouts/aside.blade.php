@@ -34,7 +34,7 @@ Dashboard
  @foreach($menus as $item)
 <li class="nav-item">
 <a href="#" class="nav-link">
-<i class="nav-icon fas fa-table"></i>
+<i class="nav-icon fas {{ $item->icon_class }}"></i>
 <p>
 {{ $item->name }}
 <i class="fas fa-angle-left right"></i>

@@ -11,6 +11,10 @@ use App\Http\Requests\RegisterRequest;
 use App\Jobs\VerifyUser;
 use App\Http\Requests\VerifyUserRequest;
 use App\Http\Requests\ResetOtpRequest;
+use App\Http\Requests\forgotPasswordRequest;
+use App\Jobs\forgotPasswordJob;
+use App\Http\Requests\newPasswordRequest;
+use App\Http\Requests\changePasswordRequest;
 
 class AuthController extends Controller
 {
@@ -50,7 +54,8 @@ class AuthController extends Controller
         ]);
         if($user){
 
-        VerifyUser::dispatch($request->name,$request->email,$otp);
+            dispatch(new VerifyUser($request->name,$request->email,$otp));
+        // VerifyUser::dispatch($request->name,$request->email,$otp);
         $device = substr($request->userAgent() ?? '',0,255);
                 return response()->json([
             'message' => 'User Successfully Register. Please check Your Email Address for otp.',
@@ -80,7 +85,7 @@ class AuthController extends Controller
           
     }
 
-        public function reset(ResetOtpRequest $request)
+        public function resetVerify(ResetOtpRequest $request)
     {
 
         $user = User::where('email', $request->email)->first();
@@ -96,11 +101,96 @@ class AuthController extends Controller
         ]);
 
 
-        VerifyUser::dispatch($user->name,$request->email,$otp);
+        dispatch(new VerifyUser($user->name,$request->email,$otp));
         
                 return response()->json([
+                    'email' => $request->email,
             'message' => 'Please check Your Email Address for New otp.',
         ]);
 
     }
+
+    public function forgotPassword(forgotPasswordRequest $request)
+    {
+            $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+         $otp = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        $user->update([
+            'otp' => $otp,
+        ]);
+
+        dispatch(new forgotPasswordJob($request->name,$request->email,$otp));
+        return response()->json([
+            'email' => $request->email,
+            'message' => 'Please check Your Email Address for New otp.',
+        ]);
+    }
+
+            public function resetForgotPassword(ResetOtpRequest $request)
+    {
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+         $otp = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        $user->update([
+            'otp' => $otp,
+        ]);
+
+
+        dispatch(new forgotPasswordJob($user->name,$request->email,$otp));
+        
+                return response()->json([
+            'email' => $request->email,
+            'message' => 'Please check Your Email Address for New otp.',
+        ]);
+
+    }
+
+                public function newPassword(newPasswordRequest $request)
+    {
+        $user = User::where('email', $request->email)->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        
+        
+                return response()->json([
+            'message' => 'Password Successfully Updated.',
+        ]);
+
+    }
+
+     public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+       
+                        return response()->json([
+            'message' => 'Logout Successfully.',
+        ]);
+    }
+
+    public function changePassword(changePasswordRequest $request)
+    {
+        auth()->user()->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+                                return response()->json([
+            'message' => 'Password Changed Successfully.',
+        ]);
+
+
+    }
+
+    
 }
