@@ -12,6 +12,6 @@ class PostsSystemIndex extends Component
     public function render()
     {
         $users = User::where('role_id',2)->paginate(1);
-        return view('livewire.posts-system-index', compact('users'));
+        return view('livewire.posts.posts-system-index', compact('users'));
     }
 }

@@ -44,8 +44,8 @@ Dashboard
 <li class="nav-item">
 @if ($item->name == 'Posts System')
     <a href="{{ route('admin.posts.index') }}" class="nav-link">
-@elseif ($item->name == 'Posts System')
-     <a href="pages/tables/simple.html" class="nav-link">
+@elseif ($item->name == 'Death Notices')
+     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
 @else
      <a href="pages/tables/simple.html" class="nav-link">
 @endif
@@ -61,7 +61,7 @@ Dashboard
 </a>
 </li>
 <li class="nav-item">
-<a href="pages/tables/jsgrid.html" class="nav-link">
+<a href="{{ route('admin.posts.category') }}" class="nav-link">
 <i class="far fa-circle nav-icon"></i>
 <p>Categories</p>
 </a>

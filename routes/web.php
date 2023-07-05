@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostSystemController;
+use App\Http\Livewire\PostsCategory;
+use App\Http\Controllers\Admin\DeathNoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'as'=> 'admin.'], function() {
     Route::get('dashboard', [DashboardController::Class,'index'])->name('dashboard');
     Route::resource('posts', PostSystemController::class);
+    Route::resource('death-notices', DeathNoticeController::class);
+    Route::get('category', PostsCategory::class)->name('posts.category');
 
 });
 

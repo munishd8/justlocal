@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable()->unique();
-            $table->string('parent_location')->nullable();
+            $table->foreignId('parent_category')->nullable() ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');;
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
