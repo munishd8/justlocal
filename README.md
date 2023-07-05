@@ -103,3 +103,7 @@ fields :
 * password_confirmation
 * token eg: Bearer 18|jOB2pyAI4dTi1zKsF25PvZZ5DnG9P2N6VQBz0Bpm
 ``````````
+* Setting Default Category
+````````````
+Run php artisan db:seed CategorySeeder
+````````````
