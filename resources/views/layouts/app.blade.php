@@ -255,10 +255,9 @@ All rights reserved.
 
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 
-<script src="{{ asset('dist/js/demo.js') }}"></script>
 
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
   // Handle "Select All" checkbox
   $('#selectAll').on('change', function() {
@@ -362,7 +361,7 @@ All rights reserved.
       "responsive": true,
     });
   });
-</script>
+</script> --}}
 @livewireScripts
 </body>
 </html>

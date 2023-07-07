@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class Category extends Model
 {
@@ -17,6 +19,7 @@ class Category extends Model
         'slug',
         'parent_category',
         'description',
+        'menu_id',
         'image',
     ];
 
@@ -37,5 +40,10 @@ class Category extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_category');
+    }
+
+        public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class);
     }
 }

@@ -55,13 +55,19 @@ Dashboard
 </a>
 </li>
 <li class="nav-item">
-<a href="pages/tables/data.html" class="nav-link">
+@if ($item->name == 'Posts System')
+    <a href="{{ route('admin.posts.create') }}" class="nav-link">
+@elseif ($item->name == 'Death Notices')
+     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
+@else
+     <a href="pages/tables/simple.html" class="nav-link">
+@endif
 <i class="far fa-circle nav-icon"></i>
 <p>Add New</p>
 </a>
 </li>
 <li class="nav-item">
-<a href="{{ route('admin.posts.category') }}" class="nav-link">
+<a href="{{ route('admin.posts.category.index') }}" class="nav-link">
 <i class="far fa-circle nav-icon"></i>
 <p>Categories</p>
 </a>

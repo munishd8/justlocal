@@ -17,6 +17,21 @@
 </div>
 </div>
 
-<livewire:posts-system-index />
+<section class="container-fluid">
+    <section class="content">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<livewire:posts.posts-wire />
 
+</div>
+
+</div>
+
+
+
+</div>
+</section>
+
+</section>
 @endsection
