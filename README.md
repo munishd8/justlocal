@@ -107,3 +107,9 @@ fields :
 ````````````
 Run php artisan db:seed CategorySeeder
 ````````````
+
+* Setting Post System 
+````````````
+php artisan migrate
+Run php artisan db:seed PostSeeder
+````````````
