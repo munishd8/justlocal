@@ -23,7 +23,6 @@ class PostFactory extends Factory
                 'content' => fake()->paragraph(3),
                 'excerpt' => fake()->paragraph(1),
                 'is_featured' => fake()->randomElement([0, 1]),
-                // 'category_id' => Category::where('menu_id', 1)->pluck('id')->random(),
         ];
     }
 }

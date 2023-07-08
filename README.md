@@ -16,12 +16,6 @@ php artisan serve
 npm install
 npm run dev
 ````````` 
-# Dynamic Menu
-Posts System, Death Notices etc.
-
-`````````
-php artisan db:seed MenuSeeder
-````````` 
 
 
 # Api Creation -- For Front End
@@ -57,7 +51,7 @@ url testing : http://127.0.0.1:8000/api/v1/auth/reset-verify
 fields : 
 * email
 ``````````
-````````````
+
 * Forgot Password Api (api/v1/auth/forgot-password)
 `````````
 url testing : http://127.0.0.1:8000/api/v1/auth/forgot-password
@@ -96,12 +90,3 @@ fields :
 * password_confirmation
 * token eg: Bearer 18|jOB2pyAI4dTi1zKsF25PvZZ5DnG9P2N6VQBz0Bpm
 ``````````
-* Setting Default Category
-````````````
-Run php artisan db:seed CategorySeeder 
-````````````
-
-* Setting Post System 
-````````````
-Run php artisan db:seed PostSeeder
-````````````
