@@ -58,11 +58,6 @@ fields :
 * email
 ``````````
 ````````````
-Run the below artisan command to add job table for Mail.
-
-php artisan queue:table
-php artisan migrate
-````````````
 * Forgot Password Api (api/v1/auth/forgot-password)
 `````````
 url testing : http://127.0.0.1:8000/api/v1/auth/forgot-password
@@ -108,6 +103,5 @@ Run php artisan db:seed CategorySeeder
 
 * Setting Post System 
 ````````````
-php artisan migrate
 Run php artisan db:seed PostSeeder
 ````````````
