@@ -10,7 +10,7 @@ cd justlocal
 composer install
 cp .env.example .env 
 php artisan key:generate
-php artisan migrate --seed
+php artisan migrate
 php artisan cache:clear && php artisan config:clear 
 php artisan serve
 npm install
@@ -20,8 +20,6 @@ npm run dev
 Posts System, Death Notices etc.
 
 `````````
-
-php artisan migrate
 php artisan db:seed MenuSeeder
 ````````` 
 
@@ -105,7 +103,7 @@ fields :
 ``````````
 * Setting Default Category
 ````````````
-Run php artisan db:seed CategorySeeder
+Run php artisan db:seed CategorySeeder 
 ````````````
 
 * Setting Post System 
