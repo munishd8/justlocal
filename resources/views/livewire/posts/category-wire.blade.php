@@ -1,7 +1,7 @@
 <div class="col-md-6">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Simple Full Width Table</h3>
+<h3 class="card-title">Post System - Categories</h3>
 
 </div>
 
@@ -9,35 +9,34 @@
 <table class="table table-hover text-nowrap">
 <thead>
 <tr>
-<th style="width: 10px">#</th>
-<th>Task</th>
-<th>Progress</th>
-<th style="width: 40px">Label</th>
+<th></th>
+<th>Name</th>
+<th>Slug</th>
+<th>Count</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 @forelse($postCategories as $category)
 <tr>
-<td>1.</td>
+<td><img src="{{ asset('upload').'/'. $category->image }}" height="50px"></td>
 <td>{{ $category->name }}</td>
+<td>{{ $category->slug }}</td>
+<td>{{ $category->posts->count() }}</td>
 <td>
-<div class="progress progress-xs">
-<div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-</div>
+    <button type="button" class="btn btn-info">Edit</button>
+<button type="button" class="btn btn-danger">Delete</button>
 </td>
-<td><span class="badge bg-danger">55%</span></td>
 </tr>
 @empty
-<tr>
-<td>Uncategorized</td>
-</tr>
+
 @endforelse
 </tbody>
 </table>
 </div>
 <div class="card-footer clearfix">
 <ul class="pagination pagination-sm m-0 float-right">
-    {{ $postCategories->links() }}
+    {{ $postCategories->onEachSide(0)->links() }}
 </ul>
 </div>
 

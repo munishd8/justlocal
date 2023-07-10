@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Posts\CategoryController;
 use App\Http\Controllers\Admin\Posts\PostController;
 use App\Http\Controllers\Admin\DeathNoticeController;
+use App\Http\Livewire\ProfileWire;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,10 @@ Route::group(['middleware' => 'auth', 'as'=> 'admin.'], function() {
         Route::get('posts', [PostController::class,'index'])->name('posts.index');
                 Route::get('posts/create', [PostController::class,'create'])->name('posts.create');
                 Route::get('posts', [PostController::class,'index'])->name('posts.index');
+                                Route::get('posts/trash', [PostController::class,'trash'])->name('posts.trash');
     Route::get('posts/category', [CategoryController::class,'index'])->name('posts.category.index');
+
+    Route::get('profile', ProfileWire::class)->name('profile.index');
     Route::resource('death-notices', DeathNoticeController::class);
 
 });

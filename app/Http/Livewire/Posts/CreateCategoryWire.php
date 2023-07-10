@@ -20,9 +20,8 @@ class CreateCategoryWire extends Component
  
     protected $rules = [
         'name' => 'required',
-        'parent_category' => 'required|integer',
         'description' => 'required|string',
-        'image' => 'image|max:1024',
+        'image' => 'image|max:1024|mimes:jpeg,png,jpg',
     ];
 
         protected $messages = [
@@ -44,9 +43,13 @@ class CreateCategoryWire extends Component
 
         $validatedData = $this->validate();
         $validatedData['menu_id'] = 1;
-        $this->image->store('images');
- 
-        Category::create($validatedData);
+
+        $category = Category::create($validatedData);
+        $extension  = $this->image->getClientOriginalExtension();
+        $image = $this->image->storeAs('categories',$category->slug.'.'.$extension,'public');
+        $category->update([
+            'image' => $image,
+        ]);
         $this->successMessage = 'Category created successfully.';
     $this->name = '';
      $this->parent_category = '';

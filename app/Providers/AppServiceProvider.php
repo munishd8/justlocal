@@ -22,8 +22,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('layouts.aside', MenuComposer::class);
-        // View::composer('layouts.aside',  function (View $view) {
-        //     $view->with('menus', Menu::all());
-        // });
     }
 }

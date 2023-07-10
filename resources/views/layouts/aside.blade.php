@@ -51,7 +51,13 @@ Dashboard
 @endif
 
 <i class="far fa-circle nav-icon"></i>
+@if ($item->name == 'Posts System')
 <p>All Posts</p>
+@elseif ($item->name == 'Death Notices')
+<p>Death Notices</p>
+@else
+Directory listings
+@endif
 </a>
 </li>
 <li class="nav-item">
@@ -63,13 +69,42 @@ Dashboard
      <a href="pages/tables/simple.html" class="nav-link">
 @endif
 <i class="far fa-circle nav-icon"></i>
+@if ($item->name == 'Posts System')
 <p>Add New</p>
+@elseif ($item->name == 'Death Notices')
+<p>Add New Notice</p>
+@else
+Add New listings
+@endif
+</a>
+</li>
+
+<li class="nav-item">
+@if ($item->name == 'Posts System')
+    <a href="{{ route('admin.posts.create') }}" class="nav-link">
+@elseif ($item->name == 'Death Notices')
+     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
+@else
+     <a href="pages/tables/simple.html" class="nav-link">
+@endif
+<i class="far fa-circle nav-icon"></i>
+@if ($item->name == 'Posts System'  || $item->name == 'Directory listings')
+<p>Categories</p>
+@else
+<p>Notice Categorys</p>
+@endif
 </a>
 </li>
 <li class="nav-item">
-<a href="{{ route('admin.posts.category.index') }}" class="nav-link">
+@if ($item->name == 'Posts System')
+    <a href="{{ route('admin.posts.trash') }}" class="nav-link">
+@elseif ($item->name == 'Death Notices')
+     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
+@else
+     <a href="pages/tables/simple.html" class="nav-link">
+@endif
 <i class="far fa-circle nav-icon"></i>
-<p>Categories</p>
+<p>Trash</p>
 </a>
 </li>
 </ul>
@@ -336,7 +371,7 @@ Pages
 </a>
 </li>
 <li class="nav-item">
-<a href="pages/examples/profile.html" class="nav-link">
+<a href="#" class="nav-link">
 <i class="far fa-circle nav-icon"></i>
 <p>Profile</p>
 </a>

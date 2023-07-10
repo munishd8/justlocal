@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Categories')
 @section('content')
 <div class="content-header">
 <div class="container-fluid">
@@ -32,4 +32,10 @@
 </section>
 
 </section>
+@endsection
+@section('scripts')
+<script>
+  const input = document.querySelector('input[id="categoryImage"]');
+  const pond = FilePond.create(input);
+</script>
 @endsection

@@ -1,11 +1,8 @@
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">{{ __('List of Posts') }}</h3>
+<h3 class="card-title">{{ __('List of Trash Posts') }}</h3>
 <div class="card-tools">
-    {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
-        <a href="{{ route('admin.posts.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-        
-    {{-- </div> --}}
+
 </div>
 </div>
 
@@ -68,8 +65,9 @@
 <td>{{ $post->created_at->format('d,M Y h:iA') }}</td>
 <td>{{ $post->updated_at->format('d,M Y h:iA') }}</td>
 <td>
-    <button class="btn btn-info">Edit</button>
-    <button wire:click="trashConfirm('trash', {{ $post->id }})" class="btn btn-danger">Trash</button>
+    <button  wire:click="restoreConfirm('restore', {{ $post->id }})" class="btn btn-info">Restore</button>
+    <button wire:click="deleteConfirm('delete', {{ $post->id }})" class="btn btn-danger">Delete</button>
+
 </td>
 </tr>
 @empty

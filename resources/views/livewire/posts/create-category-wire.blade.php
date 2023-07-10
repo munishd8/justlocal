@@ -6,9 +6,12 @@
  
 <div class="card-body">
     @if ($successMessage)
-    <div class="alert alert-success">
-        {{ $successMessage }}
-    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+   {{ $successMessage }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 @endif
  <form wire:submit.prevent="saveCategory">
     @csrf
@@ -22,6 +25,7 @@
 <div class="form-group">
 <label for="exampleInputEmail1">Parent Category</label>
 <select wire:model="parent_category" class="form-control  @error('parent_category') is-invalid @enderror" >
+<option value="">None</option>
 @foreach($postCategories as $category)
 <option value="{{ $category->id }}">{{ $category->name }}</option>
 @endforeach

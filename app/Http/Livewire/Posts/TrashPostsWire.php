@@ -3,17 +3,17 @@
 namespace App\Http\Livewire\Posts;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Post;
 use App\Models\Category;
-use Livewire\WithPagination;
 
-class PostsWire extends Component
+class TrashPostsWire extends Component
 {
-    use WithPagination;
+     use WithPagination;
     
     public array $categories = [];
     
-    protected $listeners = ['trash', 'deleteSelected'];  
+    protected $listeners = ['delete', 'deleteSelected','restore','restoreSelected'];  
 
      public array $selected = []; 
 
@@ -37,9 +37,9 @@ class PostsWire extends Component
         return count($this->selected);
     } 
 
-        public function trashConfirm($method, $id = null)
+        public function deleteConfirm($method, $id = null)
     {
-        $this->dispatchBrowserEvent('swal:trash-confirm', [
+        $this->dispatchBrowserEvent('swal:delete-confirm', [
             'type'   => 'warning',
             'title'  => 'Are you sure?',
             'text'   => '',
@@ -48,14 +48,34 @@ class PostsWire extends Component
         ]);
     }
 
-        public function trash($id)
+            public function restoreConfirm($method, $id = null)
     {
-        Post::findOrFail($id)->delete();
+        $this->dispatchBrowserEvent('swal:restore-confirm', [
+            'type'   => 'warning',
+            'title'  => 'Are you sure?',
+            'text'   => '',
+            'id'     => $id,
+            'method' => $method,
+        ]);
     }
+
+            public function restore($id)
+    {
+       // dd($id);
+        Post::onlyTrashed()->findOrFail($id)->restore();
+    }
+    
+        public function delete($id)
+    {
+       // dd($id);
+        Post::onlyTrashed()->findOrFail($id)->forceDelete();
+    }
+
+
 
         public function deleteSelected(): void 
     {
-        $Post = Post::whereIn('id', $this->selected)->get();
+        $Post = Post::onlyTrashed()->whereIn('id', $this->selected)->get();
  
         $Post->each->delete();
  
@@ -65,8 +85,8 @@ class PostsWire extends Component
     public function render()
     {
 
- $posts = Post::paginate(5);
- $posts = Post::query()->with('categories');
+ $posts = Post::onlyTrashed()->paginate(5);
+ $posts = Post::query()->onlyTrashed()->with('categories');
  
         foreach ($this->searchColumns as $column => $value) {
             if (!empty($value)) {
@@ -75,9 +95,11 @@ class PostsWire extends Component
             }
         } 
  
-        return view('livewire.posts.posts-wire',  [
+        return view('livewire.posts.trash-posts-wire',  [
             'posts' => $posts, 
             'posts' => $posts->paginate(10) 
         ]);
+
     }
+
 }

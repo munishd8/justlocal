@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->longText('content');
-            $table->text('excerpt');
+            $table->text('excerpt')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
