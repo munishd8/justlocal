@@ -15,7 +15,30 @@ class PostsWire extends Component
     
     protected $listeners = ['trash', 'deleteSelected'];  
 
-     public array $selected = []; 
+    public $selected = [];
+    public $action = '';
+    public $selectAll = false;
+
+    public function toggleSelectAll()
+    {
+        if ($this->selectAll) {
+            $this->selected = Post::pluck('id')->map(fn ($id) => (string) $id)->toArray();
+        } else {
+            $this->selected = [];
+        }
+    }
+
+    public function performAction()
+    {
+        if ($this->action === 'trash') {
+            $post =  Post::whereIn('id', $this->selected)->get();
+            $post->each->delete();
+        }
+
+        $this->selected = []; // Reset the selected array
+        $this->action = ''; // Reset the selected action
+        $this->selectAll = false;
+    }
 
         public array $searchColumns = [ 
         'title' => '',
@@ -53,20 +76,11 @@ class PostsWire extends Component
         Post::findOrFail($id)->delete();
     }
 
-        public function deleteSelected(): void 
-    {
-        $Post = Post::whereIn('id', $this->selected)->get();
- 
-        $Post->each->delete();
- 
-        $this->reset('selected');
-    } 
-
     public function render()
     {
 
- $posts = Post::paginate(5);
- $posts = Post::query()->with('categories');
+ $posts = Post::latest('updated_at')->paginate(5);
+ $posts = Post::query()->with('categories')->latest('updated_at');
  
         foreach ($this->searchColumns as $column => $value) {
             if (!empty($value)) {

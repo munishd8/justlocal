@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'parent_category'=> Category::all()->random()->id,
-            'menu_id'=> Menu::all()->random()->id,
+            'menu_id'=> Menu::whereIn('id',[1,3])->inRandomOrder()->first()->id,
             'description' => fake()->paragraph,
             'image' => fake()->imageUrl(640, 480, 'animals', true),
         ];

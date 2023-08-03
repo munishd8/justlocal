@@ -20,7 +20,7 @@ class DeathNoticeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.deathNotices.create');
     }
 
     /**
@@ -61,5 +61,11 @@ class DeathNoticeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function trash()
+    {
+        
+        return view('admin.deathNotices.trash');
     }
 }

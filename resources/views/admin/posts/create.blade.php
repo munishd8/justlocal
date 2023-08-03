@@ -30,3 +30,17 @@
 
 </section>
 @endsection
+{{-- @section('scripts')
+        <script>
+        ClassicEditor
+            .create(document.querySelector('#editornote1'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    window.livewire.find('mCmGDOobOcZ7BqTvnZ0o').set('text', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endsection --}}

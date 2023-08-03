@@ -15,7 +15,31 @@ class TrashPostsWire extends Component
     
     protected $listeners = ['delete', 'deleteSelected','restore','restoreSelected'];  
 
-     public array $selected = []; 
+
+     public $selected = [];
+     public $action = '';
+     public $selectAll = false;
+
+     public function toggleSelectAll()
+     {
+         if ($this->selectAll) {
+             $this->selected = Post::onlyTrashed()->pluck('id')->map(fn ($id) => (string) $id)->toArray();
+            
+            } else {
+             $this->selected = [];
+         }
+     }
+ 
+     public function performAction()
+     {
+         if ($this->action === 'restore') {
+             $post =  Post::whereIn('id', $this->selected)->restore();
+         }
+ 
+         $this->selected = []; // Reset the selected array
+         $this->action = ''; // Reset the selected action
+         $this->selectAll = false;
+     }
 
         public array $searchColumns = [ 
         'title' => '',

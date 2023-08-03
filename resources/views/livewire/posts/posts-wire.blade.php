@@ -2,10 +2,8 @@
 <div class="card-header">
 <h3 class="card-title">{{ __('List of Posts') }}</h3>
 <div class="card-tools">
-    {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
         <a href="{{ route('admin.posts.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-        
-    {{-- </div> --}}
+
 </div>
 </div>
 
@@ -25,14 +23,19 @@
            @endforeach
         </select>         
     </div>
+</div>  
+<div class="col-sm-12 col-md-2">
+    <div class="dt-buttons btn-group flex-wrap">
+        <select wire:model="action"  class="form-control form-control-sm">
+            <option value="">Select Action</option>
+            <option value="trash">Move to Trash</option>
+        </select>
+          
+    </div>
+</div>
+<div class="col-sm-12 col-md-3">
+    <button wire:click="performAction" class="btn btn-primary">Apply</button>         
 </div>   
-<button type="button" 
-            wire:click="deleteConfirm('deleteSelected')"
-            wire:loading.attr="disabled"
-            @disabled(! $this->selectedCount)
-            class="px-4 py-2 mr-5 text-xs text-red-500 uppercase bg-red-200 rounded-md border border-transparent hover:text-red-700 hover:bg-red-300 disabled:opacity-50 disabled:cursor-not-allowed">
-        Move to Trash
-    </button>       
 
 
 </div>
@@ -42,8 +45,7 @@
 <tr>
 {{-- <th style="width: 10px"><input type="checkbox" wire:model="selectAll" id="select-all">
 </th> --}}
-<th style="width: 10px"><input type="checkbox" wire:model="selectAll" id="select-all">
-</th>
+<th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
 <th>Title</th>
 <th>Categories</th>
 <th>Featured</th>
@@ -55,8 +57,7 @@
 <tbody>
 @forelse($posts as $post)
 <tr>
-<td>
-    <input type="checkbox" value="{{ $post->id }}" wire:model="selected">    </td>
+    <td><input type="checkbox" wire:model="selected" value="{{ $post->id }}"></td>
 <td>{{ $post->title }}</td>
 <td>
            @foreach($post->categories as $category)
