@@ -6,6 +6,7 @@ use App\Models\DirectoryListing;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Image;
+use App\Models\PhoneType;
 
 class CreateDirectoryListingWire extends Component
 {
@@ -55,6 +56,7 @@ class CreateDirectoryListingWire extends Component
         'contact_info_content' => 'required|string',
         'contact_images' => 'required|max:2048',
         'phone' => 'required',
+        
     ];
 
         protected $messages = [
@@ -101,7 +103,28 @@ class CreateDirectoryListingWire extends Component
             'contact_info_content' => $this->contact_info_content,
         ]);
 
-        // $directoryListing->contactInformation()->contactNumbers()
+        // $phones = [$this->phone,$this->phone_2,$this->phone_3,$this->phone_4];
+        // $phoneTypes = PhoneType::all();
+        // foreach ($phoneTypes as $phoneType) {
+        //     foreach ($phones as $phone) {
+        //         if(isset($phone)){
+        //         $contact->contactNumbers()->attach($phoneType, ['phone_number' => $phone]);
+        //     }
+        // }
+        // }
+
+        $phones = [$this->phone, $this->phone_2, $this->phone_3, $this->phone_4];
+$phoneTypes = PhoneType::all();
+
+foreach ($phoneTypes as $index => $phoneType) {
+    $phone = $phones[$index] ?? null;
+    
+    if (isset($phone)) {
+        $contact->contactNumbers()->attach($phoneType, ['phone_number' => $phone]);
+    }
+}
+
+
 
         
 
@@ -171,6 +194,9 @@ $contact->images()->save($imageModel);
      $this->contact_info_content  = '';
      $this->contact_images = null;
      $this->phone  = '';
+     $this->phone_2  = '';
+     $this->phone_3  = '';
+     $this->phone_4  = '';
     }
 
     public function render()
