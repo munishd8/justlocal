@@ -91,3 +91,51 @@ fields :
 * password_confirmation
 * token eg: Bearer 18|jOB2pyAI4dTi1zKsF25PvZZ5DnG9P2N6VQBz0Bpm
 ``````````
+
+* Posts Categories  Api (api/v1/posts/categories)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/posts/categories
+
+``````````
+
+* Directory Listings Categories  Api (api/v1/posts/directory-listings/categories)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/directory-listings/categories
+
+``````````
+
+* Directory locations  Api (api/v1/directory-listings/locations)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/directory-listings/locations
+
+``````````
+
+* Death Notices  Api (api/v1/death-notices)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/death-notices
+
+``````````
+
+* Local Eats   Api (api/v1/local-eats)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/local-eats
+
+``````````
+
+* Planning Applications  Api (api/v1/planning-applications)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/planning-applications
+
+``````````
+
+* Restaurants  Api (api/v1/posts/restaurants)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/restaurants
+
+``````````
+
+* Transports  Api (api/v1/posts/transports)
+`````````
+url testing : http://127.0.0.1:8000/api/v1/transports
+
+``````````

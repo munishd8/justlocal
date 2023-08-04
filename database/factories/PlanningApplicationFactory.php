@@ -22,6 +22,7 @@ class PlanningApplicationFactory extends Factory
                 'applicant_name' => fake()->userName(),
                 'planning_reference' => fake()->paragraph(1),
                 'registration_date' => fake()->date(),
+                'due_submit_date'  => fake()->date(),
         ];
     }
 }

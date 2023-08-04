@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contact_information', function (Blueprint $table) {
-            $table->string('contact_info_content')->after('content');
+            $table->longText('contact_info_content')->after('content');
             $table->dropColumn('content');    
         });
     }

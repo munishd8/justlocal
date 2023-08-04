@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeathNotice;
 use Illuminate\Http\Request;
 
 class DeathNoticeController extends Controller
@@ -44,7 +45,8 @@ class DeathNoticeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $deathNotice =  DeathNotice::findOrFail($id);
+        return view('admin.deathNotices.create',compact('deathNotice'));
     }
 
     /**

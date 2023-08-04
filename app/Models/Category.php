@@ -16,6 +16,7 @@ class Category extends Model
     use HasFactory,Sluggable, SoftDeletes;
 
      protected $fillable = [
+        'id',
         'name',
         'slug',
         'parent_category',
@@ -46,5 +47,34 @@ class Category extends Model
         public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class);
+    }
+
+    public static function postCategorytree()
+    {
+        $allPostCategories = Category::where('menu_id', 1)->get();
+        $postCategories = $allPostCategories->whereNull('parent_category');
+
+        self::formatTree($postCategories, $allPostCategories);
+        return $postCategories;
+    }
+
+    public static function directoryListingCategorytree()
+    {
+        $allDirectoryListingCategories = Category::where('menu_id', 3)->get();
+        $directoryListingCategories = $allDirectoryListingCategories->whereNull('parent_category');
+
+        self::formatTree($directoryListingCategories, $allDirectoryListingCategories);
+        return $directoryListingCategories;
+    }
+
+    private static function formatTree($categories, $allCategories)
+    {
+        foreach ($categories as $category) {
+            $category->children = $allCategories->where('parent_category', $category->id)->values();
+
+            if ($category->children->isNotEmpty()) {
+                self::formatTree($category->children, $allCategories);
+            }
+        }
     }
 }

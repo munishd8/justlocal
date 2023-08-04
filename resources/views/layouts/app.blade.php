@@ -39,7 +39,7 @@
 <div class="wrapper">
 
 <div class="preloader flex-column justify-content-center align-items-center">
-<img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+<img class="animation__shake" src="{{ asset('dist/img/JustLocalLogo.jpg') }}" alt="AdminLTELogo" height="80" width="300">
 </div>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -188,10 +188,10 @@ Nora Silvester
 </div>
 
 <footer class="main-footer">
-<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+<strong>Copyright &copy; {{ date('Y') }} <a target="_blank" href="https://justlocal.ie/">Just Local</a>.</strong>
 All rights reserved.
 <div class="float-right d-none d-sm-inline-block">
-<b>Version</b> 3.2.0
+<b>Version</b> 1.0.0
 </div>
 </footer>
 

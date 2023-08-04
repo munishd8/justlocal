@@ -45,4 +45,25 @@ class Location extends Model
     {
         return $this->belongsToMany(DirectoryListing::class);
     }
+
+    public static function locationTree()
+    {
+        $allLocations = Location::get();
+        $locations = $allLocations->whereNull('parent_location');
+
+        self::formatTree($locations, $allLocations);
+        return $locations;
+    }
+
+    private static function formatTree($locations, $allLocations)
+    {
+        foreach ($locations as $location) {
+            $location->children = $allLocations->where('parent_location', $location->id)->values();
+
+            if ($location->children->isNotEmpty()) {
+                self::formatTree($location->children, $allLocations);
+            }
+        }
+    }
 }
+

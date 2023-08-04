@@ -3,6 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthController;
+use App\Http\Controllers\Api\v1\DeathNotice\DeathNoticeController;
+use App\Http\Controllers\Api\v1\Posts\CategoryController as PostCategoryController;
+use App\Http\Controllers\Api\v1\DirectoryListing\CategoryController as DirectoryListingCategoryController;
+use App\Http\Controllers\Api\v1\DirectoryListing\LocationController;
+use App\Http\Controllers\Api\v1\LocalEat\LocalEatController;
+use App\Http\Controllers\Api\v1\PlanningApplication\PlanningApplicationController;
+use App\Http\Controllers\Api\v1\Restaurants\RestaurantsController;
+use App\Http\Controllers\Api\v1\Transports\TransportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +38,25 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
   Route::post('auth/reset-forgot-password', [AuthController::class,'resetForgotPassword']);
 
     Route::post('auth/new-password', [AuthController::class,'newPassword']);
+
+    //Post Routes
+Route::get('posts/categories', PostCategoryController::class);
+
+//Directory Listings Routes
+Route::get('directory-listings/categories', DirectoryListingCategoryController::class);
+Route::get('directory-listings/locations', LocationController::class);
+
+//Death Notices Routes
+Route::get('death-notices', [DeathNoticeController::class, 'index']);
+
+//Local Eat  Routes
+Route::get('local-eats', [LocalEatController::class, 'index']);
+
+//Planning Applications  Routes
+Route::get('planning-applications', [PlanningApplicationController::class, 'index']);
+
+//Restaurants   Routes
+Route::get('restaurants', [RestaurantsController::class, 'index']);
+
+//Transports   Routes
+Route::get('transports', [TransportController::class, 'index']);

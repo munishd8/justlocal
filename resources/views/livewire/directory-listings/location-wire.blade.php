@@ -9,7 +9,7 @@
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 pb-2">
             <div class="row">
                 <div class="col-sm-12 col-md-4">
-                    <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" wire:model="searchColumns.title" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
+                    <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" wire:model="searchColumns.name" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
                 </div>
             </div>
           
