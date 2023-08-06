@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Posts\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthController;
 use App\Http\Controllers\Api\v1\DeathNotice\DeathNoticeController;
 use App\Http\Controllers\Api\v1\Posts\CategoryController as PostCategoryController;
 use App\Http\Controllers\Api\v1\DirectoryListing\CategoryController as DirectoryListingCategoryController;
+use App\Http\Controllers\Api\v1\DirectoryListing\DirectoryListingController;
 use App\Http\Controllers\Api\v1\DirectoryListing\LocationController;
 use App\Http\Controllers\Api\v1\LocalEat\LocalEatController;
 use App\Http\Controllers\Api\v1\PlanningApplication\PlanningApplicationController;
@@ -41,10 +43,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //Post Routes
 Route::get('posts/categories', PostCategoryController::class);
+Route::get('posts', [PostController::class,'index']);
 
 //Directory Listings Routes
 Route::get('directory-listings/categories', DirectoryListingCategoryController::class);
 Route::get('directory-listings/locations', LocationController::class);
+Route::get('directory-listings', [DirectoryListingController::class,'index']);
 
 //Death Notices Routes
 Route::get('death-notices', [DeathNoticeController::class, 'index']);
