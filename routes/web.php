@@ -41,13 +41,16 @@ Route::group(['middleware' => 'auth', 'as'=> 'admin.'], function() {
                 Route::get('posts/trash', [PostController::class,'trash'])->name('posts.trash');
                 Route::get('posts/{id}/edit', [PostController::class,'edit'])->name('posts.edit');
     Route::get('posts/category', [CategoryController::class,'index'])->name('posts.category.index');
+    Route::get('posts/category/{id}/edit', [CategoryController::class,'edit'])->name('posts.category.edit');
 
     Route::get('profile', ProfileWire::class)->name('profile.index');
     Route::get('death-notices/trash', [DeathNoticeController::class,'trash'])->name('death-notices.trash');
     Route::resource('death-notices', DeathNoticeController::class);
 
     Route::get('directory-listings/location', [DirectoryListingLocationController::class,'index'])->name('directory-listings.location.index');
+    Route::get('directory-listings/location/{id}/edit', [DirectoryListingLocationController::class,'edit'])->name('directory-listings.location.edit');
     Route::get('directory-listings/category', [DirectoryListingCategoryController::class,'index'])->name('directory-listings.category.index');
+    Route::get('directory-listings/category/{id}/edit', [DirectoryListingCategoryController::class,'edit'])->name('directory-listings.category.edit');
     Route::get('directory-listings/trash', [DirectoryListingController::class,'trash'])->name('directory-listings.trash');
     Route::resource('directory-listings', DirectoryListingController::class);
 

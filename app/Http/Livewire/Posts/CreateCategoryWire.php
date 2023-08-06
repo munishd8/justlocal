@@ -47,7 +47,7 @@ class CreateCategoryWire extends Component
     
         if ($this->image) {
             $extension = $this->image->getClientOriginalExtension();
-            $imagePath = $this->image->storeAs('categories', $category->slug.'.'.$extension, 'public');
+            $imagePath = $this->image->storeAs('images/categories/posts', $category->slug.'.'.$extension, 'public');
             $category->image = $imagePath;
             $category->save();
             $this->emit('categoryCreated');

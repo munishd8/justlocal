@@ -19,4 +19,17 @@ class DirectoryListingLocationController extends Controller
         return view('admin.directoryListings.location', compact('directoryListingLocations','parents'));
 
     }
+
+    public function edit($id)
+    {
+        $directoryListingLocations = Location::with('parent')
+            ->where('id','!=',$id)
+            ->get();
+
+        $parents = $directoryListingLocations->map(function ($location) {
+return $location->parent;
+})->unique();
+        $location = Location::findOrFail($id);
+        return view('admin.directoryListings.editLocation',compact('location','directoryListingLocations'));
+    }
 }

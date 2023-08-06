@@ -46,7 +46,7 @@ class CreateLocationWire extends Component
     
         if ($this->image) {
             $extension = $this->image->getClientOriginalExtension();
-            $imagePath = $this->image->storeAs('directoryListing/Location', $location->slug.'.'.$extension, 'public');
+            $imagePath = $this->image->storeAs('images/categories/locations', $location->slug.'.'.$extension, 'public');
             $location->image = $imagePath;
             $location->save();
             $this->emit('locationCreated');

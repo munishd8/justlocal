@@ -20,4 +20,18 @@ class CategoryController extends Controller
         return view('admin.posts.category', compact('postCategories','parents'));
 
     }
+
+    public function edit($id)
+    {
+        $postCategories = Category::with('parent')
+            ->where('menu_id',1)
+            ->where('id','!=',$id)
+            ->get();
+
+        $parents = $postCategories->map(function ($category) {
+return $category->parent;
+})->unique();
+        $category = Category::findOrFail($id);
+        return view('admin.posts.editCategory',compact('category','postCategories'));
+    }
 }

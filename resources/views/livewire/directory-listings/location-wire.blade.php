@@ -52,7 +52,7 @@
 <td>{{ $location->slug }}</td>
 <td>{{ $location->directoryListings->count() }}</td>
         <td>
-            <button class="btn btn-info">Edit</button>
+            <a class="btn btn-info" href="{{ route('admin.directory-listings.location.edit',$location->id) }}">Edit</a>
             <button wire:click="trashConfirm('trash', {{ $location->id }})" class="btn btn-danger">Delete</button>
         </td>
         </tr>

@@ -57,7 +57,7 @@ class CreatePostWire extends Component
 
        foreach ($this->images as $image) {
                 $extension  = $image->getClientOriginalExtension();
-        $path = $image->storeAs('images',$post->slug.'-'.rand(100,999).'.'.$extension,'public');
+        $path = $image->storeAs('images/posts',$post->slug.'-'.rand(100,999).'.'.$extension,'public');
 
     $imageModel = new Image();
     $imageModel->image = $path;

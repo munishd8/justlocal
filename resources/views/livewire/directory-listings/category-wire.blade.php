@@ -52,7 +52,7 @@
 <td>{{ $category->slug }}</td>
 <td>{{ $category->posts->count() }}</td>
         <td>
-            <button class="btn btn-info">Edit</button>
+            <a class="btn btn-info" href="{{ route('admin.directory-listings.category.edit',$category->id) }}">Edit</a>
             <button wire:click="trashConfirm('trash', {{ $category->id }})" class="btn btn-danger">Delete</button>
         </td>
         </tr>
