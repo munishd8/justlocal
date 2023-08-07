@@ -69,7 +69,7 @@
 <td>{{ $post->created_at->format('d,M Y h:iA') }}</td>
 <td>{{ $post->updated_at->format('d,M Y h:iA') }}</td>
 <td>
-    <button class="btn btn-info">Edit</button>
+    <a href="{{ route('admin.posts.edit',$post->id) }}" class="btn btn-info">Edit</a>
     <button wire:click="trashConfirm('trash', {{ $post->id }})" class="btn btn-danger">Trash</button>
 </td>
 </tr>

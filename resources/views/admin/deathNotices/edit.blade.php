@@ -5,7 +5,7 @@
 <div class="container-fluid">
 <div class="row mb-2">
 <div class="col-sm-6">
-<h1 class="m-0">Edit Death Notice</h1>
+<h1 class="m-0">Edit Death Notice - {{ $deathNotice->title }}</h1>
 </div>
 <div class="col-sm-6">
 <ol class="breadcrumb float-sm-right">
@@ -20,7 +20,7 @@
 <section class="container-fluid">
     <section class="content">
 <div class="container-fluid">
-    <livewire:death-notice.create-death-notice-wire />
+    <livewire:death-notice.edit-death-notice-wire :deathNotice="$deathNotice" />
 
 
 

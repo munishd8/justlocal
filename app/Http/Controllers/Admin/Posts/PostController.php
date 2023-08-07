@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         $post = Post::with('categories')->find($id);
         $postCategories = Category::with('parent')->where('menu_id',1)->get();
-        return view('admin.posts.edit', compact($post, $postCategories));
+        return view('admin.posts.edit', compact('post', 'postCategories'));
     }
         public function trash()
     {

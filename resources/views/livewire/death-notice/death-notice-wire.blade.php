@@ -63,7 +63,7 @@
     <td>{{ $notice->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $notice->updated_at->format('d,M Y h:iA') }}</td>
     <td>
-        <button class="btn btn-info">Edit</button>
+        <a class="btn btn-info" href="{{ route('admin.death-notices.edit', $notice->id) }}">Edit</a>
         <button wire:click="trashConfirm('trash', {{ $notice->id }})" class="btn btn-danger">Trash</button>
     </td>
     </tr>

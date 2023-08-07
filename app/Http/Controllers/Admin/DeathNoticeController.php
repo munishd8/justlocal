@@ -46,7 +46,7 @@ class DeathNoticeController extends Controller
     public function edit(string $id)
     {
         $deathNotice =  DeathNotice::findOrFail($id);
-        return view('admin.deathNotices.create',compact('deathNotice'));
+        return view('admin.deathNotices.edit',compact('deathNotice'));
     }
 
     /**
