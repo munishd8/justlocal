@@ -53,7 +53,7 @@ class CreateRestaurantWire extends Component
 
       
                 $extension  = $this->image->getClientOriginalExtension();
-        $path = $this->image->storeAs('images/restaurants/',$restaurant->slug.'-'.rand(100,999).'.'.$extension,'public');
+        $path = $this->image->storeAs('images/restaurants/',$restaurant->name.'-'.rand(100,999).'.'.$extension,'public');
 
     $imageModel = new Image();
     $imageModel->image = $path;

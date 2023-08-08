@@ -8,7 +8,14 @@
         {{-- </div> --}}
     </div>
     </div>
-    
+    @if(session('success'))
+    <div class="alert alert-warning alert-dismissible fade show"  role="alert">
+        {{ session('success') }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span> 
+  </button>
+</div>
+@endif
     <div class="card-body table-responsive p-4">
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 pb-2">
         <div class="row">
@@ -60,7 +67,7 @@
     <td>{{ $restaurant->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $restaurant->updated_at->format('d,M Y h:iA') }}</td>
     <td>
-        <button  wire:click="restoreConfirm('restore', {{ $restaurant->id }})" class="btn btn-info">Restore</button>
+        <a href="{{ route('admin.restaurants.edit',$restaurant->id ) }}" class="btn btn-info">Edit</a>
         <button wire:click="trashConfirm('trash', {{ $restaurant->id }})" class="btn btn-danger">Trash</button>
     </td>
     </tr>

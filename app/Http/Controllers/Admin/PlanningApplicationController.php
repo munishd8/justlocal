@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlanningApplication;
 use Illuminate\Http\Request;
 
 class PlanningApplicationController extends Controller
@@ -44,7 +45,8 @@ class PlanningApplicationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $planningApplication =  PlanningApplication::findOrFail($id);
+        return view('admin.planningApplication.edit',compact('planningApplication'));
     }
 
     /**

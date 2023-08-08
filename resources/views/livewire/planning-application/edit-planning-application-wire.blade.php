@@ -5,81 +5,73 @@
     <div class="col-md-12">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Edit Death Notice - {{ $title }}</h3>
+<h3 class="card-title">Edit Planning Application - {{ $name }}</h3>
 </div>
  
 <div class="card-body">
-
- <form wire:submit.prevent="updateDeathNotice">
+ 
+ <form wire:submit.prevent="updatePlanningApplication">
     @csrf
 <div class="card-body">
     <div class="form-group">
-        <label for="exampleInputEmail1">Title</label>
-        <input type="text"  wire:model="title" class="form-control" placeholder="Title">
-        @error('title')
+        <label for="exampleInputEmail1">Name</label>
+        <input type="text"  wire:model="name" class="form-control" placeholder="Name">
+        @error('name')
         <span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
-        @enderror 
+        @enderror
         </div>
 
 
 
 <div class="form-group">
-<label for="exampleInputEmail1">Content</label>
+<label for="exampleInputEmail1">Details</label>
 <div class="card-body-wapper">
 <div wire:ignore>
-                                        <textarea data-note="@this" wire:model.defer="content" class="form-control @error('content') is-invalid @enderror" rows="5" id="editornote1">{{ $content  }}</textarea>
+                                        <textarea data-note="@this" wire:model.defer="details" class="form-control @error('details') is-invalid @enderror" rows="5" id="editornote1">{{ $details }}</textarea>
                                     </div>
                                      </div>
-                                     @error('content')
+                                     @error('details')
                                     <span style="padding-left: 0;color: red;font-size: 14px;"
                                         id="text-error" class="alert error">* {{ $message }}</span>
                                 @enderror
 
 </div>
-<div class="form-group">
-<label for="exampleInputEmail1">Date of Birth</label>
-<input type="date" wire:model="date_of_birth"
-class="form-control" placeholder="Date of Birth">
-@error('date_of_birth')
-<span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
-@enderror
-</div>
 
 <div class="form-group">
-    <label for="exampleInputEmail1">Date of Death</label>
-    <input type="date" wire:model="date_of_death" 
-    class="form-control" placeholder="Date of Death">
-    @error('date_of_death')
+    <label for="exampleInputEmail1">Applicant Name</label>
+    <input type="text"  wire:model="applicant_name" class="form-control" placeholder="Applicant Name">
+    @error('applicant_name')
     <span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
     @enderror
     </div>
 
     <div class="form-group">
-        <label for="exampleInputEmail1">Notice Date</label>
-        <input type="date" wire:model="notice_date" 
-        class="form-control" placeholder="Notice Date">
-        @error('notice_date')
+        <label for="exampleInputEmail1">Planning Reference</label>
+        <input type="text"  wire:model="planning_reference" class="form-control" placeholder="Planning Reference">
+        @error('planning_reference')
+        <span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
+        @enderror
+        </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Registration Date</label>
+        <input type="date" wire:model="registration_date" 
+        class="form-control" placeholder="Registration Date">
+        @error('registration_date')
         <span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
         @enderror
         </div>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Notice link</label>
-            <input type="text"  wire:model="notice_link" class="form-control"  placeholder="Notice Link">
-            @error('notice_link')
-            <span style="padding-left: 0;color: red;font-size: 14px;"
-                id="name-error" class="alert error">* {{ $message }}</span>
+            <label for="exampleInputEmail1">Due date to submit observations</label>
+            <input type="date" wire:model="due_submit_date" 
+            class="form-control" placeholder="Due date to submit observations">
+            @error('due_submit_date')
+            <span  style="padding-left: 0;color: red;font-size: 14px;" class="error">{{ $message }}</span>
             @enderror
             </div>
 
-            <div class="form-group">
-                <label for="exampleInputEmail1">Link</label>
-                <input type="text"  wire:model="link" class="form-control"  placeholder="Link">
-                @error('link')
-                <span style="padding-left: 0;color: red;font-size: 14px;"
-                    id="name-error" class="alert error">* {{ $message }}</span>
-                @enderror
-                </div>
+     
 
                             <div class="form-group">
                                 <label for="exampleInputFile">Image</label>
@@ -113,11 +105,11 @@ class="form-control" placeholder="Date of Birth">
                                 
 
                             </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
 </div>
 
-
+<div class="card-footer">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
 
 </div>
 
@@ -129,7 +121,7 @@ class="form-control" placeholder="Date of Birth">
   
 
 
-
+</form>
     
   
 
@@ -141,34 +133,13 @@ class="form-control" placeholder="Date of Birth">
             .create(document.querySelector('#editornote1'))
             .then(editor => {
                 editor.model.document.on('change:data', () => {
-                    @this.set('content', editor.getData());
+                    @this.set('details', editor.getData());
                 })
             })
             .catch(error => {
                 console.error(error);
             });
     </script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-     <script>
-        // Initialize the datepicker
-        $(document).ready(function () {
-            $('#datepicker').datepicker({
-                format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true,
-            });
-            $('#datepicker_death').datepicker({
-                format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true,
-            });
-            $('#datepicker_notice').datepicker({
-                format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true,
-            });
-        });
-    </script>
+   
 
      @endsection

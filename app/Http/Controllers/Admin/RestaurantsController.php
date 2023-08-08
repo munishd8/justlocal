@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class RestaurantsController extends Controller
@@ -44,7 +45,8 @@ class RestaurantsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $restaurant =  Restaurant::findOrFail($id);
+        return view('admin.restaurants.edit',compact('restaurant'));
     }
 
     /**

@@ -4,7 +4,14 @@
         <h3 class="card-title">{{ __('List of Posts Categories') }}</h3>
 
         </div>
-        
+        @if(session('success'))
+        <div class="alert alert-warning alert-dismissible fade show"  role="alert">
+            {{ session('success') }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span> 
+      </button>
+    </div>
+@endif
         <div class="card-body table-responsive p-4">
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 pb-2">
             <div class="row">

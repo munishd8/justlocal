@@ -49,7 +49,6 @@ class EditPostCategoryWire extends Component
     public function updateCategory()
     {
         $validatedData = $this->validate();
-        // dd($this->parent_category);
 
         $image = $this->img;
         
@@ -81,7 +80,7 @@ class EditPostCategoryWire extends Component
             $this->category->save();
             
         }
-        $this->successMessage = 'Category updated successfully.';
+        return redirect()->route('admin.posts.category.index')->with('success', 'Post Category updated successfully.');
 
     }
 
