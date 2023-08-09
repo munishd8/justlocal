@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Category;
+use App\Models\DirectoryListing;
 use App\Models\Location;
 
 class DirectoryListingController extends Controller
@@ -24,7 +25,7 @@ class DirectoryListingController extends Controller
     public function create()
     {
         $directoryListingLocations = Location::with('parent')->get();
-        $directoryListingCategories = Category::with('parent')->where('menu_id',3)->get();
+        $directoryListingCategories = Category::with('parent')->where('menu_id', 3)->get();
         return view('admin.directoryListings.create', [
             'directoryListingCategories' => $directoryListingCategories,
             'directoryListingLocations' => $directoryListingLocations,
@@ -52,7 +53,12 @@ class DirectoryListingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $directoryListingLocations = Location::with('parent')->get();
+        $directoryListing = DirectoryListing::with(['categories', 'locations', 'contactInformation', 'images'])
+            ->find($id);
+        // return $directoryListing->contactInformation->contactNumbers;
+        $directoryListingCategories = Category::with('parent')->where('menu_id', 3)->get();
+        return view('admin.directoryListings.edit', compact('directoryListing', 'directoryListingCategories', 'directoryListingLocations'));
     }
 
     /**

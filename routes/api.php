@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\v1\LocalEat\LocalEatController;
 use App\Http\Controllers\Api\v1\PlanningApplication\PlanningApplicationController;
 use App\Http\Controllers\Api\v1\Restaurants\RestaurantsController;
 use App\Http\Controllers\Api\v1\Transports\TransportController;
+use App\Http\Controllers\Api\v1\Subsriber\SubsriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use App\Http\Controllers\Api\v1\Transports\TransportController;
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('auth/logout', [AuthController::class,'logout']);
+    Route::get('dashboard',[SubsriberController::class,'index']);
     Route::post('auth/change-password', [AuthController::class,'changePassword']);
 
 });
@@ -42,6 +44,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('auth/new-password', [AuthController::class,'newPassword']);
 
     //Post Routes
+Route::get('posts/categories', PostCategoryController::class);
 Route::get('posts/categories', PostCategoryController::class);
 Route::get('posts', [PostController::class,'index']);
 

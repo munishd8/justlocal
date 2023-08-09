@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LocalEat;
 use Illuminate\Http\Request;
 
 class LocalEatsController extends Controller
@@ -31,20 +32,10 @@ class LocalEatsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $localEat =  LocalEat::findOrFail($id);
+        return view('admin.localEats.edit', compact('localEat'));
     }
 
     /**
@@ -63,7 +54,7 @@ class LocalEatsController extends Controller
         //
     }
     public function trash()
-    {   
+    {
         return view('admin.localEats.trash');
     }
 }

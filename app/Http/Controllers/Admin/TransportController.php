@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transport;
 use Illuminate\Http\Request;
 
 class TransportController extends Controller
@@ -44,7 +45,8 @@ class TransportController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $transport =  Transport::findOrFail($id);
+        return view('admin.transport.edit', compact('transport'));
     }
 
     /**
