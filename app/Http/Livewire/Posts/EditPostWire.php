@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Posts;
 
 use App\Models\Image;
-use App\Models\Post;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 

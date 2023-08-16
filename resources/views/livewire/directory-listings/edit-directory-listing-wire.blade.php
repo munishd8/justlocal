@@ -5,7 +5,7 @@
     <div class="col-md-8">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Add New Directory Listing</h3>
+<h3 class="card-title">Edit Directory Listing - {{ $title }}</h3>
 </div>
  
 <div class="card-body">
@@ -17,7 +17,7 @@
   </button>
 </div>
 @endif
- <form wire:submit.prevent="save">
+ <form wire:submit.prevent="editListings">
     @csrf
 <div class="card-body">
 <div class="form-group">
@@ -60,6 +60,15 @@
             <span class="input-group-text">Upload</span>
         </div>
     </div>
+    @foreach ($listing_imgs as $img)
+                            <div class="row mt-2">
+                                <div class="col-3 card me-1 mb-1">
+                                    <img src="{{ asset('upload/'.$img->image) }}">
+                                    <a class="btn btn-danger" wire:click="deleteImage({{ $img->id }})">Delete</a>
+                                </div>
+                            </div>                                
+                            @endforeach
+                            
     @error('images')
     <span style="padding-left: 0;color: red;font-size: 14px;"
         id="image-error" class="alert error">* {{ $message }}</span>
@@ -74,6 +83,14 @@
             @endforeach
         </div>
     @endif
+    @if ($failMessage)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ $failMessage }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @endif
     
 
 </div>
@@ -112,6 +129,13 @@
                         <span class="input-group-text">Upload</span>
                     </div>
                 </div>
+                @isset($old_card)
+                <div class="row mt-2">
+                                <div class="col-3 card me-1 mb-1">
+                                    <img src="{{ asset('upload/'.$old_card) }}">
+                                </div>
+                            </div>  
+@endisset
                 @error('card')
                 <span style="padding-left: 0;color: red;font-size: 14px;"
                     id="image-error" class="alert error">* {{ $message }}</span>
@@ -201,7 +225,7 @@
                         id="name-error" class="alert error">* {{ $message }}</span>
                     @enderror
                     </div>
-
+                        
                     <div class="form-group">
                         <label for="exampleInputEmail1">Phone</label>
                         <input type="text"  wire:model="phone" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
@@ -283,7 +307,8 @@
                                                         <label for="exampleInputEmail1">Extra Content</label>
                                                          <div class="card-body-wapper">
                                                         <div wire:ignore>
-                                                                                                <textarea wire:model.defer="contact_info_content" placeholder="Extra Content" class="form-control rows="5"></textarea>
+                                                        <textarea data-note="@this" wire:model.defer="contact_info_content" class="form-control @error('contact_info_content') is-invalid @enderror" rows="5" id="editornote2">{{ $contact_info_content }}</textarea>
+                                        
                                                                                             </div>
                                                                                              </div>
                                                                                              @error('contact_info_content')
@@ -305,6 +330,14 @@
                                                                     <span class="input-group-text">Upload</span>
                                                                 </div>
                                                             </div>
+                                                            @foreach ($contact_imgs as $img)
+                            <div class="row mt-2">
+                                <div class="col-3 card me-1 mb-1">
+                                    <img src="{{ asset('upload/'.$img->image) }}">
+                                    <a class="btn btn-danger" wire:click="deleteContactImage({{ $img->id }})">Delete</a>
+                                </div>
+                            </div>                                
+                            @endforeach
                                                             @error('contact_images')
                                                             <span style="padding-left: 0;color: red;font-size: 14px;"
                                                                 id="image-error" class="alert error">* {{ $message }}</span>
@@ -319,6 +352,14 @@
                                                                     @endforeach
                                                                 </div>
                                                             @endif
+                                                            @if ($contactFailMessage)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ $contactFailMessage }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @endif
                                                             
                             
                                                         </div>
@@ -349,8 +390,10 @@
                     <label for="exampleInputEmail12">Address</label>
                      {{-- <div class="card-body-wapper"> --}}
                     {{-- <div> --}}
-                                                            <textarea wire:model="address" placeholder="Enter Address" class="form-control" rows="5"></textarea>
-                                                        {{-- </div> --}}
+                    <div wire:ignore>
+                                        <textarea data-note="@this" wire:model.defer="address" class="form-control @error('address') is-invalid @enderror" rows="5" id="editornote3">{{ $address }}</textarea>
+                                    
+                                                             </div>
                                                          {{-- </div> --}}
                                                          @error('address')
                                                         <span style="padding-left: 0;color: red;font-size: 14px;"
@@ -385,7 +428,7 @@
                             id="name-error" class="alert error">* {{ $message }}</span>
                         @enderror
                         </div>
-                            
+                        <button type="submit" class="btn btn-primary">Submit</button>        
                 </div><!---card-body--> 
             
                 </div>    <!---card-body-->    
@@ -393,9 +436,7 @@
 </div>
 
 
-<div class="card-footer">
-<button type="submit" class="btn btn-primary">Submit</button>
-</div>
+
 
 </div>
 
@@ -417,16 +458,27 @@
             </div><!--card-header-->
             
             <div class="card-body" style="display: block;">
-                @forelse($directoryListingCategories as $directoryListingCategory) 
-                <div class="form-group mb-2">
-                    <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="{{ $directoryListingCategory->name }}" wire:model="categories" value="{{ $directoryListingCategory->id }}">
-                        <label style="font-weight: 500;" for="{{ $directoryListingCategory->name }}">{{ $directoryListingCategory->name }}
-                        </label>
-                        </div>
-                    </div>
-                @empty
-                @endforelse       
+                                        
+                @forelse($directoryListingCategories as $directoryListingCategory)
+    <div class="form-group mb-2">
+        <div class="icheck-primary d-inline">
+        @php
+                $categoryId = $directoryListingCategory->id;
+                $isSelected = $selectedDirectoryListingCategories->contains(function ($value) use ($categoryId) {
+                    return $value->id === $categoryId;
+                });
+            @endphp
+            <input type="checkbox" id="{{ $directoryListingCategory->name }}"
+                   wire:model="categories" value="{{ $directoryListingCategory->id }}"
+                   @if ($isSelected) checked @endif
+            >
+            <label style="font-weight: 500;" for="{{ $directoryListingCategory->name }}">
+                {{ $directoryListingCategory->name }}
+            </label>
+        </div>
+    </div>
+    @empty
+@endforelse  
             </div><!---card-body--> 
         
             </div>    <!---card-body-->
@@ -446,7 +498,9 @@
                     @forelse($directoryListingLocations as $key => $location)
 <div class="form-group mb-2">
     <div class="icheck-primary d-inline">
-        <input type="checkbox" id="{{ $location->name }}{{ $key }}" wire:model="locations" value="{{ $location->id }}">
+        <input type="checkbox" id="{{ $location->name }}{{ $key }}"
+         wire:model="locations" value="{{ $location->id }}"
+         @if(in_array($location->id, $locations)) checked @endif >
         <label style="font-weight: 500;" for="{{ $location->name }}{{ $key }}">{{ $location->name }}
         </label>
         </div>
@@ -471,6 +525,28 @@
             .then(editor => {
                 editor.model.document.on('change:data', () => {
                     @this.set('content', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#editornote2'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    @this.set('contact_info_content', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#editornote3'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    @this.set('address', editor.getData());
                 })
             })
             .catch(error => {

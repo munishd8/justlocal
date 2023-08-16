@@ -3,12 +3,21 @@
     <h3 class="card-title">{{ __('List of directory Listings') }}</h3>
     <div class="card-tools">
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
-            <a href="{{ route('admin.posts.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
+            <a href="{{ route('admin.directory-listings.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
             
         {{-- </div> --}}
     </div>
     </div>
     
+    <div class="card-body table-responsive p-4">
+        @if(session('success'))
+        <div class="alert alert-warning alert-dismissible fade show"  role="alert">
+            {{ session('success') }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span> 
+      </button>
+    </div>
+@endif
     <div class="card-body table-responsive p-4">
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 pb-2">
         <div class="row">
@@ -78,13 +87,13 @@
     <td>{{ $directoryListing->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $directoryListing->updated_at->format('d,M Y h:iA') }}</td>
     <td>
-        <button class="btn btn-info">Edit</button>
+        <a href="{{ route('admin.directory-listings.edit', $directoryListing->id) }}" class="btn btn-info">Edit</a>
         <button wire:click="trashConfirm('trash', {{ $directoryListing->id }})" class="btn btn-danger">Trash</button>
     </td>
     </tr>
     @empty
     <tr>
-    <td>No Posts Found.</td>
+    <td>No Directory Listing  Found.</td>
     </tr>
     @endforelse
     </tbody>

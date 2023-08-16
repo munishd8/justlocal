@@ -14,6 +14,7 @@ class DeathNoticeController extends Controller
     public function index()
     {
         return view('admin.deathNotices.death-notices');
+        
     }
 
     /**

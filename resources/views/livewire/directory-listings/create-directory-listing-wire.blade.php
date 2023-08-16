@@ -282,8 +282,9 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Extra Content</label>
                                                          <div class="card-body-wapper">
-                                                        <div wire:ignore>
-                                                                                                <textarea wire:model.defer="contact_info_content" placeholder="Extra Content" class="form-control rows="5"></textarea>
+                                                         <div wire:ignore>
+                                        <textarea data-note="@this" wire:model.defer="contact_info_content" class="form-control @error('contact_info_content') is-invalid @enderror" rows="5" id="editornote2"></textarea>
+
                                                                                             </div>
                                                                                              </div>
                                                                                              @error('contact_info_content')
@@ -349,7 +350,10 @@
                     <label for="exampleInputEmail12">Address</label>
                      {{-- <div class="card-body-wapper"> --}}
                     {{-- <div> --}}
-                                                            <textarea wire:model="address" placeholder="Enter Address" class="form-control" rows="5"></textarea>
+                    <div wire:ignore>
+                                        <textarea data-note="@this" wire:model.defer="address" class="form-control @error('address') is-invalid @enderror" rows="5" id="editornote3"></textarea>
+                                    </div>
+                                                            
                                                         {{-- </div> --}}
                                                          {{-- </div> --}}
                                                          @error('address')
@@ -476,5 +480,31 @@
             .catch(error => {
                 console.error(error);
             });
+
+            ClassicEditor
+            .create(document.querySelector('#editornote2'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    @this.set('contact_info_content', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#editornote3'))
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    @this.set('address', editor.getData());
+                })
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            
     </script>
+ <script>
+
+            </script>
 @endsection
