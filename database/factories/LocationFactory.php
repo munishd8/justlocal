@@ -22,7 +22,7 @@ class LocationFactory extends Factory
             'name' =>fake()->sentence,
             'parent_location'=> Location::all()->random()->id,
             'description' => fake()->paragraph(3),
-            'image' => fake()->imageUrl(640, 480, 'animals', true),
+            'image' => 'images/categories/locations/image-42.png',
         ];
 
     }

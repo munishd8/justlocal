@@ -178,6 +178,13 @@
                             <span class="input-group-text">Upload</span>
                         </div>
                     </div>
+                    @isset($old_local_support_image)
+                <div class="row mt-2">
+                                <div class="col-3 card me-1 mb-1">
+                                    <img src="{{ asset('upload/'.$old_local_support_image) }}">
+                                </div>
+                            </div>  
+@endisset
                     @error('local_support_image')
                     <span style="padding-left: 0;color: red;font-size: 14px;"
                         id="image-error" class="alert error">* {{ $message }}</span>

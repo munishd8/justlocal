@@ -174,8 +174,8 @@ class EditDirectoryListingWire extends Component
         $this->is_local_support_view_featured = ($this->is_local_support_view_featured == 1) ? 1 : 0;
 
         if ($this->is_local_support_view_featured == 1 && isset($this->local_support_image)) {
-            $extension  = $this->card->getClientOriginalExtension();
-            $local_support = $this->card->storeAs('images/directoryListing/localSupport', $this->title . '-' . rand(100, 999) . '.' . $extension, 'public');
+            $extension  = $this->local_support_image->getClientOriginalExtension();
+            $local_support = $this->local_support_image->storeAs('images/directoryListing/localSupport', $this->title . '-' . rand(100, 999) . '.' . $extension, 'public');
         }
         $local_support = (isset($local_support)) ? $local_support : NULL;
         $this->is_local_support_view_featured = ($this->is_local_support_view_featured == 1) ? 1 : 0;

@@ -20,7 +20,7 @@ class CreateDirectoryListingWire extends Component
     public $title;
     public $content;
     public $excerpt;
-    public $is_card_view_featured;
+    public $is_card_view_featured = false;
     public $card;
     public $is_local_support_view_featured;
     public $local_support_image;
@@ -84,10 +84,20 @@ class CreateDirectoryListingWire extends Component
         $this->is_local_support_view_featured = ($this->is_local_support_view_featured==1)? 1 : 0;
 
         if($this->is_local_support_view_featured == 1 && isset($this->local_support_image)){
-            $extension  = $this->card->getClientOriginalExtension();
-            $local_support = $this->card->storeAs('images/directoryListing/localSupport',$this->title.'-'.rand(100,999).'.'.$extension,'public');
+
+            $extension  = $this->local_support_image->getClientOriginalExtension();
+            $local_support = $this->local_support_image->storeAs('images/directoryListing/localSupport',$this->title.'-'.rand(100,999).'.'.$extension,'public');
+            
+            // $extension = $this->image->getClientOriginalExtension();
+            // $imagePath = $this->image->storeAs('images/categories/directory-lists', $category->slug.'.'.$extension, 'public');
+            // $category->image = $imagePath;
+            // $category->save();
+            // $this->emit('categoryCreated');
+       
         }
+        
         $local_support = (isset($local_support))? $local_support : NULL;
+        // dd($local_support);
         $this->is_local_support_view_featured = ($this->is_local_support_view_featured==1)? 1 : 0;
        $directoryListing =  DirectoryListing::create($validatedData + ['excerpt'=>$this->excerpt,'is_card_view_featured' => $this->is_card_view_featured,'card' => $path_card,'is_local_support_view_featured'=> $this->is_local_support_view_featured,'local_support_image'=> $local_support, 'excerpt'=> $this->excerpt]);
     

@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(PostSeeder::class);
-        $this->call(DeathNoticeSeeder::class);
         $this->call(LocationSeeder::class);
         $this->call(DirectoryListingSeeder::class);
+        $this->call(ContactInformationSeeder::class);
+        $this->call(DeathNoticeSeeder::class);
         $this->call(LocalEatSeeder::class);
         $this->call(PlanningApplicationSeeder::class);
         $this->call(RestaurantSeeder::class);
         $this->call(TransportSeeder::class);
-        $this->call(ContactInformationSeeder::class);
         $this->call(PhoneTypeSeeder::class);
         
     }
