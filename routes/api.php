@@ -44,12 +44,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('auth/new-password', [AuthController::class,'newPassword']);
 
     //Post Routes
-Route::get('posts/categories', PostCategoryController::class);
-Route::get('posts/categories', PostCategoryController::class);
+Route::get('posts/categories', [PostCategoryController::class,'categories']);
+Route::get('categories/{category:slug}/posts', [PostCategoryController::class,'listPosts']);
 Route::get('posts', [PostController::class,'index']);
 
-//Directory Listings Routes
-Route::get('directory-listings/categories', DirectoryListingCategoryController::class);
+Route::get('directory-listings/categories', [DirectoryListingCategoryController::class,'listDirectoryListings']);
+Route::get('categories/{category:slug}/directory-listings', [DirectoryListingCategoryController::class,'listDirectoryListings']);
 Route::get('directory-listings/locations', LocationController::class);
 Route::get('directory-listings', [DirectoryListingController::class,'index']);
 
