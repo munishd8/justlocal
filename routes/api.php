@@ -47,11 +47,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 Route::get('posts/categories', [PostCategoryController::class,'categories']);
 Route::get('categories/{category:slug}/posts', [PostCategoryController::class,'listPosts']);
 Route::get('posts', [PostController::class,'index']);
+Route::get('post/{post:slug}', [PostController::class, 'singlePost']);
 
 Route::get('directory-listings/categories', [DirectoryListingCategoryController::class,'listDirectoryListings']);
 Route::get('categories/{category:slug}/directory-listings', [DirectoryListingCategoryController::class,'listDirectoryListings']);
 Route::get('directory-listings/locations', LocationController::class);
 Route::get('directory-listings', [DirectoryListingController::class,'index']);
+Route::get('directory-listing/{listing:slug}', [DirectoryListingController::class, 'singleListing']);
 
 //Death Notices Routes
 Route::get('death-notices', [DeathNoticeController::class, 'index']);

@@ -13,4 +13,10 @@ class PostController extends Controller
         $posts = Post::with('images')->latest()->get();
         return PostResource::collection($posts);
     }
+
+    public function singlePost($slug)
+    {
+        $post = Post::with('images')->where('slug', $slug)->first();
+        return new PostResource($post);
+    }
 }

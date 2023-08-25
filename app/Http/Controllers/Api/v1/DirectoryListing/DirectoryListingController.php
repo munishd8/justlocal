@@ -13,4 +13,10 @@ class DirectoryListingController extends Controller
         $directoryListings = DirectoryListing::with(['images','contactInformation.contactNumbers'])->latest('id')->get();
         return DirectoryListingResource::collection($directoryListings);
     }
+
+    public function singleListing($slug)
+    {
+        $directoryListings = DirectoryListing::with(['images', 'contactInformation.contactNumbers'])->where('slug', $slug)->first();
+        return new DirectoryListingResource($directoryListings);
+    }
 }
