@@ -26,7 +26,8 @@ class Location extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'name',
+                'includeTrashed' => true,
             ]
         ];
     }

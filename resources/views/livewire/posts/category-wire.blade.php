@@ -2,7 +2,6 @@
     <div class="card">
         <div class="card-header">
         <h3 class="card-title">{{ __('List of Posts Categories') }}</h3>
-
         </div>
         @if(session('success'))
         <div class="alert alert-warning alert-dismissible fade show"  role="alert">

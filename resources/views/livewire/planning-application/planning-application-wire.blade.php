@@ -4,8 +4,7 @@
     <div class="card-tools">
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
             <a href="{{ route('admin.planning-applications.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-            
-        {{-- </div> --}}
+           {{-- </div> --}}
     </div>
     </div>
     @if(session('success'))
@@ -43,12 +42,8 @@
     <thead>
     <tr>
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
+    <th></th>
     <th>Name</th>
-    <th>Details</th>
-    <th>Applicant Name</th>
-    <th>Planning Reference</th>
-    <th>Registration Date</th>
-    <th>Submit Observations</th>
     <th>Created At</th>
     <th>Updated At</th>
     <th></th>
@@ -58,11 +53,8 @@
     @forelse($planningApplications as $planningApplication)
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $planningApplication->id }}"></td>
-    <td>{{ $planningApplication->name }}</td>
-    <td>{{ strip_tags($planningApplication->details) }}</td>
-    <td>{{ $planningApplication->applicant_name }}</td>
-    <td>{{ $planningApplication->planning_reference }}</td>
-    <td>{{ $planningApplication->registration_date }}</td>
+        <td><img src="{{ asset('upload/'.$planningApplication->images[0]->image) }}" height="40px"></td>
+        <td>{{ $planningApplication->name }}</td>
     <td>{{ $planningApplication->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $planningApplication->updated_at->format('d,M Y h:iA') }}</td>
     <td>

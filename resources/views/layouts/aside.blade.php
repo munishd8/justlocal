@@ -29,6 +29,24 @@ Dashboard
 </a>
 </li>
 
+<li class="nav-item">
+     <a href="#" class="nav-link">
+     <i class="nav-icon fas fa-user"></i>
+     <p>
+     User Management
+     <i class="right fas fa-angle-left"></i>
+     </p>
+     </a>
+     <ul class="nav nav-treeview">
+     <li class="nav-item">
+     <a href="{{ route('admin.subscribers.index') }}" class="nav-link">
+     <i class="far fa-circle nav-icon"></i>
+     <p>List All Subscriber     </p>
+     </a>
+     </li>
+     </ul>
+     </li>
+
     
    
 @foreach($menus as $item)
@@ -44,8 +62,8 @@ Dashboard
 <li class="nav-item">
 @if ($item->name == 'Posts System')
     <a href="{{ route('admin.posts.index') }}" class="nav-link">
-@elseif ($item->name == 'Death Notices')
-     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
+@elseif ($item->name == 'Restaurants')
+     <a href="{{ route('admin.restaurants.index') }}" class="nav-link">
 @else
      <a href="{{ route('admin.directory-listings.index') }}" class="nav-link">
 @endif
@@ -53,8 +71,8 @@ Dashboard
 <i class="far fa-circle nav-icon"></i>
 @if ($item->name == 'Posts System')
 <p>All Posts</p>
-@elseif ($item->name == 'Death Notices')
-<p>Death Notices</p>
+@elseif ($item->name == 'Restaurants')
+<p>Restaurants</p>
 @else
 All listings
 @endif
@@ -63,16 +81,16 @@ All listings
 <li class="nav-item">
 @if ($item->name == 'Posts System')
     <a href="{{ route('admin.posts.create') }}" class="nav-link">
-@elseif ($item->name == 'Death Notices')
-     <a href="{{ route('admin.death-notices.create') }}" class="nav-link">
+@elseif ($item->name == 'Restaurants')
+     <a href="{{ route('admin.restaurants.create') }}" class="nav-link">
 @else
      <a href="{{ route('admin.directory-listings.create') }}" class="nav-link">
 @endif
 <i class="far fa-circle nav-icon"></i>
 @if ($item->name == 'Posts System')
 <p>Add New</p>
-@elseif ($item->name == 'Death Notices')
-<p>Add New Notice</p>
+@elseif ($item->name == 'Restaurants')
+<p>Add New Restaurant</p>
 @else
 Add New listings
 @endif
@@ -82,13 +100,13 @@ Add New listings
 <li class="nav-item">
 @if ($item->name == 'Posts System')
     <a href="{{ route('admin.posts.category.index') }}" class="nav-link">
-@elseif ($item->name == 'Death Notices')
-     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
+@elseif ($item->name == 'Restaurants')
+     <a href="{{ route('admin.restaurants.category.index') }}" class="nav-link">
 @else
      <a href="{{ route('admin.directory-listings.category.index') }}" class="nav-link">
 @endif
 
-@if ($item->name == 'Posts System'  || $item->name == 'Directory listings')
+@if ($item->name == 'Posts System'  || $item->name == 'Directory listings'   || $item->name == 'Restaurants')
 <i class="far fa-circle nav-icon"></i>
 <p>Categories</p>
 @endif
@@ -107,8 +125,8 @@ Add New listings
 <li class="nav-item">
 @if ($item->name == 'Posts System')
     <a href="{{ route('admin.posts.trash') }}" class="nav-link">
-@elseif ($item->name == 'Death Notices')
-     <a href="{{ route('admin.death-notices.trash') }}" class="nav-link">
+@elseif ($item->name == 'Restaurants')
+     <a href="{{ route('admin.restaurants.trash') }}" class="nav-link">
 @else
      <a href="{{ route('admin.directory-listings.trash') }}" class="nav-link">
 @endif
@@ -123,25 +141,25 @@ Add New listings
      <a href="#" class="nav-link">
      <i class="nav-icon fas fa-chart-pie"></i>
      <p>
-          Restaurants
+          Death Notices
      <i class="right fas fa-angle-left"></i>
      </p>
      </a>
      <ul class="nav nav-treeview">
      <li class="nav-item">
-     <a href="{{ route('admin.restaurants.index') }}" class="nav-link">
+     <a href="{{ route('admin.death-notices.index') }}" class="nav-link">
      <i class="far fa-circle nav-icon"></i>
-     <p>List All Restaurants     </p>
+     <p>Death Notices     </p>
      </a>
      </li>
      <li class="nav-item">
-     <a href="{{ route('admin.restaurants.create') }}" class="nav-link">
+     <a href="{{ route('admin.death-notices.create') }}" class="nav-link">
      <i class="far fa-circle nav-icon"></i>
-     <p>Add Restaurants</p>
+     <p>Add New Notice</p>
      </a>
      </li>
      <li class="nav-item">
-     <a href="{{ route('admin.restaurants.trash') }}" class="nav-link">
+     <a href="{{ route('admin.death-notices.trash') }}" class="nav-link">
      <i class="far fa-circle nav-icon"></i>
      <p>Trash</p>
      </a>
@@ -243,6 +261,15 @@ Add New listings
                     </li>
                     </ul>
                     </li>
+
+                    <li class="nav-item">
+<a href="{{ route('admin.comments') }}" class="nav-link">
+<i class="nav-icon fas fa-comment"></i>
+<p>
+Comments System
+</p>
+</a>
+</li>
                
 
 

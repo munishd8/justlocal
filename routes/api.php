@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\Auth\AuthController;
 use App\Http\Controllers\Api\v1\DeathNotice\DeathNoticeController;
 use App\Http\Controllers\Api\v1\Posts\CategoryController as PostCategoryController;
+use App\Http\Controllers\Api\v1\Comments\CommentController;
 use App\Http\Controllers\Api\v1\DirectoryListing\CategoryController as DirectoryListingCategoryController;
 use App\Http\Controllers\Api\v1\DirectoryListing\DirectoryListingController;
 use App\Http\Controllers\Api\v1\DirectoryListing\LocationController;
@@ -46,10 +47,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     //Post Routes
 Route::get('posts/categories', [PostCategoryController::class,'categories']);
 Route::get('categories/{category:slug}/posts', [PostCategoryController::class,'listPosts']);
+Route::apiResource('comments', CommentController::class)->only('store');
 Route::get('posts', [PostController::class,'index']);
+Route::get('posts/search', [PostController::class, 'searchByTitle']);
 Route::get('post/{post:slug}', [PostController::class, 'singlePost']);
 
-Route::get('directory-listings/categories', [DirectoryListingCategoryController::class,'listDirectoryListings']);
+
+Route::get('directory-listings/categories', [DirectoryListingCategoryController::class,'categories']);
 Route::get('categories/{category:slug}/directory-listings', [DirectoryListingCategoryController::class,'listDirectoryListings']);
 Route::get('directory-listings/locations', LocationController::class);
 Route::get('directory-listings', [DirectoryListingController::class,'index']);
@@ -65,6 +69,9 @@ Route::get('local-eats', [LocalEatController::class, 'index']);
 Route::get('planning-applications', [PlanningApplicationController::class, 'index']);
 
 //Restaurants   Routes
+
+Route::get('restaurants/categories', [RestaurantsController::class,'categories']);
+Route::get('categories/{category:slug}/restaurants', [RestaurantsController::class,'listRestaurants']);
 Route::get('restaurants', [RestaurantsController::class, 'index']);
 
 //Transports   Routes

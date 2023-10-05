@@ -16,12 +16,12 @@ class EditDirectoryListingWire extends Component
     public $failMessage = '';
     public $contactFailMessage = '';
     public $directoryListingCategories;
-    public $selectedDirectoryListingCategories;
     public $directoryListingLocations;
     public $directoryListing;
     public $categories = [];
+    public $parent_category;
     public $locations = [];
-    // public $directoryListingCategories = [];
+    public $parent_location;
     public $title;
     public $content;
     public $excerpt;
@@ -103,9 +103,14 @@ class EditDirectoryListingWire extends Component
         $this->contact_excerpt = $this->directoryListing->contactInformation->contact_excerpt;
         $this->contact_info_content = $this->directoryListing->contactInformation->contact_info_content;
         $this->contact_imgs = $this->directoryListing->contactInformation->images;
-        // dd($this->directoryListingCategories);
-        $this->selectedDirectoryListingCategories = $this->directoryListing->categories;
-        $this->selectedDirectoryListingCategories->pluck('id')->toArray();
+
+        $this->parent_category = $this->directoryListing->categories->pluck('id')->toArray();
+        $this->categories = $this->parent_category;
+
+        $this->parent_location = $this->directoryListing->locations->pluck('id')->toArray();
+        $this->locations = $this->parent_location;
+
+        // public $locations = [];
         // dd($this->selectedDirectoryListingCategories);
         $numbers = $this->directoryListing->contactInformation->contactNumbers;
 
@@ -181,6 +186,9 @@ class EditDirectoryListingWire extends Component
         $this->is_local_support_view_featured = ($this->is_local_support_view_featured == 1) ? 1 : 0;
         $directoryListing =  $this->directoryListing->update($validatedData + ['excerpt' => $this->excerpt, 'is_card_view_featured' => $this->is_card_view_featured, 'card' => $path_card, 'is_local_support_view_featured' => $this->is_local_support_view_featured, 'local_support_image' => $local_support, 'excerpt' => $this->excerpt]);
         
+        $this->directoryListing->categories()->sync($this->categories);
+        $this->directoryListing->locations()->sync($this->locations);
+
         $this->hide_contact = ($this->hide_contact == 1) ? 1 : 0;
         $contact =  $this->directoryListing->contactInformation()->update([
             'hide_contact' => $this->hide_contact,
@@ -226,19 +234,19 @@ class EditDirectoryListingWire extends Component
 
 
 
-        if (collect($this->categories)->count() > 0) {
-            foreach ($this->categories as $category) {
-                $this->directoryListing->categories()->detach($category);
-                $this->directoryListing->categories()->attach($category);
-            }
-        }
+        // if (collect($this->categories)->count() > 0) {
+        //     foreach ($this->categories as $category) {
+        //         $this->directoryListing->categories()->detach($category);
+        //         $this->directoryListing->categories()->attach($category);
+        //     }
+        // }
 
-        if (collect($this->locations)->count() > 0) {
-            foreach ($this->locations as $location) {
-                $this->directoryListing->locations()->detach($location);
-                $this->directoryListing->locations()->attach($location);
-            }
-        }
+        // if (collect($this->locations)->count() > 0) {
+        //     foreach ($this->locations as $location) {
+        //         $this->directoryListing->locations()->detach($location);
+        //         $this->directoryListing->locations()->attach($location);
+        //     }
+        // }
 
 
         if(isset($this->images)){

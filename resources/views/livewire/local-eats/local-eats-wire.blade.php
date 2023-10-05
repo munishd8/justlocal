@@ -5,7 +5,6 @@
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
             <a href="{{ route('admin.local-eats.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
             
-        {{-- </div> --}}
     </div>
     </div>
     @if(session('success'))
@@ -45,9 +44,8 @@
     {{-- <th style="width: 10px"><input type="checkbox" wire:model="selectAll" id="select-all">
     </th> --}}
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
+    <th></th>
     <th>Name</th>
-    <th>Description</th>
-    <th>Link</th>
     <th>Created At</th>
     <th>Updated At</th>
     <th></th>
@@ -57,9 +55,8 @@
     @forelse($localEats as $localEat)
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $localEat->id }}"></td>
-    <td>{{ $localEat->name }}</td>
-    <td>{{ $localEat->description }}</td>
-    <td>{{ $localEat->link }}</td>
+        <td><img src="{{ asset('upload/'.$localEat->images[0]->image) }}" height="40px"></td>
+        <td>{{ $localEat->name }}</td>
     <td>{{ $localEat->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $localEat->updated_at->format('d,M Y h:iA') }}</td>
     <td>

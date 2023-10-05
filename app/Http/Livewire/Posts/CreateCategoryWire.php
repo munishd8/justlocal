@@ -26,7 +26,6 @@ class CreateCategoryWire extends Component
 
         protected $messages = [
         'name.required' => 'The Category Name cannot be empty.',
-        'parent_category.required' => 'The Parent category cannot be empty',
         'description.required' => 'The Description cannot be empty',
         'image.image' => 'Please Select Image.',
     ];
@@ -42,12 +41,14 @@ class CreateCategoryWire extends Component
     {
         $validatedData = $this->validate();
         $validatedData['menu_id'] = 1;
+
+        $this->parent_category = (empty($this->parent_category)) ? NULL : $this->parent_category;
     
-        $category = Category::create($validatedData);
+        $category = Category::create($validatedData + ['parent_category' => $this->parent_category]);
     
         if ($this->image) {
             $extension = $this->image->getClientOriginalExtension();
-            $imagePath = $this->image->storeAs('images/categories/posts', $category->slug.'.'.$extension, 'public');
+            $imagePath = $this->image->storeAs('upload/images/categories/posts', $category->slug.'.'.$extension, 'public');
             $category->image = $imagePath;
             $category->save();
             $this->emit('categoryCreated');

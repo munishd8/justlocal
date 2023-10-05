@@ -16,21 +16,26 @@ class PostController extends Controller
 
     public function create()
     {
-         $postCategories = Category::with('parent')->where('menu_id',1)->get();
+        //  $postCategories = Category::with('parent')->where('menu_id',1)->get();
+        $postCategories = Category::postCategoryTree();
         return view('admin.posts.create', [
             'postCategories' => $postCategories,
         ]);
+        // Category::postCategoryTree()
     }
 
     public function edit($id)
     {
         $post = Post::with('categories')->find($id);
-        $postCategories = Category::with('parent')->where('menu_id',1)->get();
+        // $postCategories = Category::with('parent')->where('menu_id',1)->get();
+        $postCategories = Category::postCategoryTree();
         return view('admin.posts.edit', compact('post', 'postCategories'));
     }
         public function trash()
     {
         return view('admin.posts.trash');
     }
+
+
     
 }

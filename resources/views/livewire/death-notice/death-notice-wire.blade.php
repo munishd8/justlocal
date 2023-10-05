@@ -3,6 +3,7 @@
     <h3 class="card-title">{{ __('List of Death Notices') }}</h3>
     <div class="card-tools">
             <a href="{{ route('admin.death-notices.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
+           
             
         {{-- </div> --}}
     </div>
@@ -46,13 +47,11 @@
     {{-- <th style="width: 10px"><input type="checkbox" wire:model="selectAll" id="select-all">
     </th> --}}
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
+    <th></th>
     <th>Title</th>
     {{-- <th>Content</th> --}}
-    <th>Date of Birth</th>
     <th>Date of Death</th>
     <th>Notice Date</th>
-    <th>Notice Link</th>
-    <th>Link</th>
     <th>Created At</th>
     <th>Updated At</th>
     <th></th>
@@ -62,13 +61,11 @@
     @forelse($deathNotice as $notice)
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $notice->id }}"></td>
+        <td><img src="{{ asset('upload/'.$notice->images[0]->image) }}" height="40px"></td>
     <td>{{ $notice->title }}</td>
     {{-- <td>{{ $notice->content }}</td> --}}
-    <td>{{ $notice->date_of_birth->format('d,M Y') }}</td>
     <td>{{ $notice->date_of_death->format('d,M Y') }}</td>
     <td>{{ $notice->notice_date->format('d,M Y') }}</td>
-    <td>{{ $notice->notice_link }}</td>
-    <td>{{ $notice->link}}</td>
     <td>{{ $notice->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $notice->updated_at->format('d,M Y h:iA') }}</td>
     <td>

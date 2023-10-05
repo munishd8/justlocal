@@ -46,8 +46,8 @@
         @forelse($directoryListingLocations as $location)
         <tr>
             <td><input type="checkbox" wire:model="selected" value="{{ $location->id }}"></td>
-        {{-- <td><img src="{{ asset('upload').'/'. $category->image }}" height="50px"></td> --}}
-<td><img src="https://via.placeholder.com/640x480.png/00bbee?text=animals+eaque" height="50px"></td>
+         <td><img src="{{ asset('upload').'/'. $location->image }}" height="50px"></td> 
+<!-- <td><img src="https://via.placeholder.com/640x480.png/00bbee?text=animals+eaque" height="50px"></td> -->
 <td>{{ $location->name }}</td>
 <td>{{ $location->slug }}</td>
 <td>{{ $location->directoryListings->count() }}</td>

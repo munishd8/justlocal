@@ -58,6 +58,8 @@ class EditPostCategoryWire extends Component
 
         if (($this->parent_category == $this->category->parent_category) || $this->parent_category != null) {
             $this->parent_category = $this->parent_category;
+         }elseif(empty($this->parent_category)){
+            $this->parent_category = NULL;
          }else{
             $this->parent_category = $this->category->parent_category;
          }

@@ -40,10 +40,10 @@
                                         id="editornote1">{{ $content }}</textarea>
                                 </div>
                             </div>
-                            @error('content')
+                            <!-- @error('content')
                             <span style="padding-left: 0;color: red;font-size: 14px;" id="text-error"
                                 class="alert error">* {{ $message }}</span>
-                            @enderror
+                            @enderror -->
 
                         </div>
                         <div class="form-group">
@@ -62,6 +62,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                <label for="exampleInputEmail1">Link</label>
+                <input type="text"  wire:model="link" class="form-control"  placeholder="Link">
+
+                </div>
                         {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Featured Post</label>
                             {{-- <input type="checkbox" wire:model="is_featured" class="form-control"
@@ -85,12 +90,14 @@
                                 </div>
                             </div>
                             @foreach ($imgs as $img)
+                            @if (!in_array($img->id, $deletedImageIds))
                             <div class="row mt-2">
                                 <div class="col-3 card me-1 mb-1">
                                     <img src="{{ asset('upload/'.$img->image) }}">
                                     <a class="btn btn-danger" wire:click="deleteImage({{ $img->id }})">Delete</a>
                                 </div>
-                            </div>                                
+                            </div>     
+                            @endif                           
                             @endforeach
 
                             @error('images')
@@ -143,18 +150,28 @@
             </div>
             <!--card-header-->
             <div class="card-body" style="display: block;">
-                @forelse($postCategories as $key => $category)
+            @forelse($postCategories as $key => $category)
+                
                 <div class="form-group mb-2">
-                    <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="{{ $category->name }}{{ $key }}" wire:model="categories"
-                            value="{{ $category->id }}" @if(in_array($category->id, $parent_category))   @endif>
-                        <label style="font-weight: 500;" for="{{ $category->name }}{{ $key }}">{{ $category->name }}
-                        </label>
-                    </div>
+                <div class="icheck-primary d-inline">
+                    <input  wire:model="categories" type="checkbox" id="{{ $category->name }}{{ $key }}" value="{{ $category->id }}">
+                    <label style="font-weight: 500;" for="{{ $category->name }}{{ $key }}">{{ $category->name }}
+                    </label>
+                </div>
+                @forelse($category->children as $key1 => $children)
+                <div class="icheck-primary" style="margin-left: 15px;">
+                    <input type="checkbox" id="{{ $children->name }}{{ $key1 }}" wire:model="categories" value="{{ $children->id }}">
+                    <label style="font-weight: 500;" for="{{ $children->name }}{{ $key1 }}">{{ $children->name }}
+                    </label>
+                
                 </div>
                 @empty
-
-                @endforelse
+                    @endforelse 
+                
+                </div>
+                @empty
+                
+                @endforelse 
             </div>
             <!---card-body-->
             </form>

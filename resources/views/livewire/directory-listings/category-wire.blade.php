@@ -46,9 +46,8 @@
         @forelse($directoryListingCategories as $category)
         <tr>
             <td><input type="checkbox" wire:model="selected" value="{{ $category->id }}"></td>
-        {{-- <td><img src="{{ asset('upload').'/'. $category->image }}" height="50px"></td> --}}
-<td><img src="https://via.placeholder.com/640x480.png/00bbee?text=animals+eaque" height="50px"></td>
-<td>{{ $category->name }}</td>
+        <td><img src="{{ asset('upload').'/'. $category->image }}" height="50px"></td> 
+<!-- <td>{{ $category->name }}</td> -->
 <td>{{ $category->slug }}</td>
 <td>{{ $category->posts->count() }}</td>
         <td>

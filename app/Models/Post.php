@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 
 class Post extends Model
@@ -18,6 +19,7 @@ class Post extends Model
             'slug',
             'content',
             'excerpt',
+            'link',
             'category_id',
             'is_featured',
     ];
@@ -27,6 +29,7 @@ class Post extends Model
         return [
             'slug' => [
                 'source' => 'title',
+                'includeTrashed' => true,
             ]
         ];
     }
@@ -39,5 +42,10 @@ class Post extends Model
         public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

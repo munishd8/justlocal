@@ -466,24 +466,25 @@
             
             <div class="card-body" style="display: block;">
                                         
-                @forelse($directoryListingCategories as $directoryListingCategory)
-    <div class="form-group mb-2">
-        <div class="icheck-primary d-inline">
-        @php
-                $categoryId = $directoryListingCategory->id;
-                $isSelected = $selectedDirectoryListingCategories->contains(function ($value) use ($categoryId) {
-                    return $value->id === $categoryId;
-                });
-            @endphp
-            <input type="checkbox" id="{{ $directoryListingCategory->name }}"
-                   wire:model="categories" value="{{ $directoryListingCategory->id }}"
-                   @if ($isSelected) checked @endif
-            >
-            <label style="font-weight: 500;" for="{{ $directoryListingCategory->name }}">
-                {{ $directoryListingCategory->name }}
-            </label>
-        </div>
-    </div>
+                @forelse($directoryListingCategories as $key => $category)
+                <div class="form-group mb-2">
+                <div class="icheck-primary d-inline">
+                    <input  wire:model="categories" type="checkbox" id="{{ $category->name }}{{ $key }}" value="{{ $category->id }}">
+                    <label style="font-weight: 500;" for="{{ $category->name }}{{ $key }}">{{ $category->name }}
+                    </label>
+                </div>
+                @forelse($category->children as $key1 => $children)
+                <div class="icheck-primary" style="margin-left: 15px;">
+                    <input type="checkbox" id="{{ $children->name }}{{ $key1 }}" wire:model="categories" value="{{ $children->id }}">
+                    <label style="font-weight: 500;" for="{{ $children->name }}{{ $key1 }}">{{ $children->name }}
+                    </label>
+                
+                </div>
+                @empty
+                    @endforelse 
+                
+                </div>
+
     @empty
 @endforelse  
             </div><!---card-body--> 
@@ -503,7 +504,7 @@
                 
                 <div class="card-body" style="display: block;">
                     @forelse($directoryListingLocations as $key => $location)
-<div class="form-group mb-2">
+<!-- <div class="form-group mb-2">
     <div class="icheck-primary d-inline">
         <input type="checkbox" id="{{ $location->name }}{{ $key }}"
          wire:model="locations" value="{{ $location->id }}"
@@ -511,7 +512,24 @@
         <label style="font-weight: 500;" for="{{ $location->name }}{{ $key }}">{{ $location->name }}
         </label>
         </div>
-    </div>
+    </div> -->
+    <div class="form-group mb-2">
+                <div class="icheck-primary d-inline">
+                    <input  wire:model="locations" type="checkbox" id="{{ $location->name }}{{ $key }}" value="{{ $location->id }}">
+                    <label style="font-weight: 500;" for="{{ $location->name }}{{ $key }}">{{ $location->name }}
+                    </label>
+                </div>
+                @forelse($location->children as $key1 => $children)
+                <div class="icheck-primary" style="margin-left: 15px;">
+                    <input type="checkbox" id="{{ $children->name }}{{ $key1 }}" wire:model="locations" value="{{ $children->id }}">
+                    <label style="font-weight: 500;" for="{{ $children->name }}{{ $key1 }}">{{ $children->name }}
+                    </label>
+                
+                </div>
+                @empty
+                    @endforelse 
+                
+                </div>
 @empty
 
 @endforelse  

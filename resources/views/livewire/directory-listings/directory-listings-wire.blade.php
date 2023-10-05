@@ -4,8 +4,7 @@
     <div class="card-tools">
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
             <a href="{{ route('admin.directory-listings.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-            
-        {{-- </div> --}}
+            {{-- </div> --}}
     </div>
     </div>
     
@@ -58,9 +57,7 @@
     </th> --}}
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
     <th>Title</th>
-    <th>Location</th>
     <th>Categories</th>
-    <th>Content</th>
     <th>Created At</th>
     <th>Updated At</th>
     <th></th>
@@ -71,19 +68,13 @@
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $directoryListing->id }}"></td>
     <td>{{ $directoryListing->title }}</td>
-    <td>
-        @foreach($directoryListing->locations as $location)
-     <a href="#" class="badge badge-info">{{ $location->name }}</a>
-     @endforeach 
-
-</td>
+ 
     <td>
                @foreach($directoryListing->categories as $category)
             <a href="#" class="badge badge-info">{{ $category->name }}</a>
             @endforeach 
     
     </td>
-    <td> {{ $directoryListing->content  }} </td>
     <td>{{ $directoryListing->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $directoryListing->updated_at->format('d,M Y h:iA') }}</td>
     <td>

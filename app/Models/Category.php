@@ -29,7 +29,8 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'name',
+                'includeTrashed' => true,
             ]
         ];
     }
@@ -49,9 +50,21 @@ class Category extends Model
         return $this->belongsToMany(Post::class);
     }
 
+    public function directorylistings(): BelongsToMany
+    {
+        return $this->belongsToMany(DirectoryListing::class);
+    }
+
+    public function restaurants(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class);
+    }
+
     public static function postCategorytree()
     {
-        $allPostCategories = Category::where('menu_id', 1)->get();
+        $allPostCategories = Category::withCount('posts')
+            ->where('menu_id', 1)
+            ->get();
         $postCategories = $allPostCategories->whereNull('parent_category');
 
         self::formatTree($postCategories, $allPostCategories);
@@ -60,11 +73,22 @@ class Category extends Model
 
     public static function directoryListingCategorytree()
     {
-        $allDirectoryListingCategories = Category::where('menu_id', 3)->get();
+        $allDirectoryListingCategories = Category::withCount('directorylistings')->where('menu_id', 3)->orderBy('name', 'asc')->get();
         $directoryListingCategories = $allDirectoryListingCategories->whereNull('parent_category');
 
         self::formatTree($directoryListingCategories, $allDirectoryListingCategories);
         return $directoryListingCategories;
+    }
+
+    public static function restaurantCategorytree()
+    {
+        $allRestaurantCategories = Category::withCount('restaurants')
+            ->where('menu_id', 2)
+            ->get();
+        $restaurantCategories = $allRestaurantCategories->whereNull('parent_category');
+
+        self::formatTree($restaurantCategories, $allRestaurantCategories);
+        return $restaurantCategories;
     }
 
     private static function formatTree($categories, $allCategories)

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin\DirectoryListings;
 
+use App\Exports\ContactInformationsExport;
+use App\Exports\DirectoryListingsExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\DirectoryListing;
 use App\Models\Location;
+use Maatwebsite\Excel\Excel;
 
 class DirectoryListingController extends Controller
 {
@@ -53,11 +56,12 @@ class DirectoryListingController extends Controller
      */
     public function edit(string $id)
     {
-        $directoryListingLocations = Location::with('parent')->get();
+        $directoryListingLocations = Location::locationTree();
         $directoryListing = DirectoryListing::with(['categories', 'locations', 'contactInformation', 'images'])
             ->find($id);
         // return $directoryListing->contactInformation->contactNumbers;
-        $directoryListingCategories = Category::with('parent')->where('menu_id', 3)->get();
+        // $directoryListingCategories = Category::with('parent')->where('menu_id', 3)->get();
+        $directoryListingCategories = Category::directoryListingCategorytree();
         return view('admin.directoryListings.edit', compact('directoryListing', 'directoryListingCategories', 'directoryListingLocations'));
     }
 
@@ -81,4 +85,16 @@ class DirectoryListingController extends Controller
     {
         return view('admin.directoryListings.trash');
     }
+
+    public function export()
+    {
+        return (new DirectoryListingsExport)->download('directory-listings.csv', Excel::CSV, ['Content-Type' => 'text/csv']);
+
+    }
+    public function contactInformationExport()
+    {
+        return (new ContactInformationsExport)->download('contact-information.csv', Excel::CSV, ['Content-Type' => 'text/csv']);
+
+    }
+    
 }

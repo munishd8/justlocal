@@ -4,8 +4,7 @@
     <div class="card-tools">
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
             <a href="{{ route('admin.transports.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-            
-        {{-- </div> --}}
+          {{-- </div> --}}
     </div>
     </div>
     @if(session('success'))
@@ -43,9 +42,8 @@
     <thead>
     <tr>
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
+    <th></th>
     <th>Name</th>
-    <th>Description</th>
-    <th>link</th>
     <th>Created At</th>
     <th>Updated At</th>
     <th></th>
@@ -55,9 +53,9 @@
     @forelse($transports as $transport)
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $transport->id }}"></td>
-    <td>{{ $transport->name }}</td>
-    <td>{{ strip_tags($transport->description) }}</td>
-    <td>{{ $transport->link }}</td>
+        <td><img src="{{ asset('upload/'.$transport->images[0]->image) }}" height="40px"></td>
+        <td>{{ $transport->name }}</td>
+
     <td>{{ $transport->created_at->format('d,M Y h:iA') }}</td>
     <td>{{ $transport->updated_at->format('d,M Y h:iA') }}</td>
     <td>

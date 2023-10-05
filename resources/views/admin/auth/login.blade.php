@@ -17,7 +17,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
 <div class="login-logo">
-<a href="../../index2.html"><b>Admin</b>LTE</a>
+<a href="http://13.48.195.166/"><b>Just</b>Local</a>
 </div>
 
 <div class="card">

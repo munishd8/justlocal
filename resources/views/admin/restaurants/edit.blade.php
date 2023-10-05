@@ -20,7 +20,7 @@
 <section class="container-fluid">
     <section class="content">
 <div class="container-fluid">
-    <livewire:restaurants.edit-restaurant-wire :restaurant="$restaurant" />
+    <livewire:restaurants.edit-restaurant-wire  :restaurantCategories="$restaurantCategories" :restaurant="$restaurant"  />
 
 
 

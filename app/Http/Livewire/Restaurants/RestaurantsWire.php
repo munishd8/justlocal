@@ -5,12 +5,15 @@ namespace App\Http\Livewire\Restaurants;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Restaurant;
+use App\Models\Category;
 
 class RestaurantsWire extends Component
 {
 
     use WithPagination;
     
+    public array $categories = [];
+
     protected $listeners = ['trash', 'deleteSelected'];  
 
     public $selected = [];
@@ -47,6 +50,7 @@ class RestaurantsWire extends Component
     
     public function mount()
     {
+        $this->categories = Category::where('menu_id',2)->pluck('name', 'id')->toArray();
         $this->searchQuery = '';
         $this->searchCategory = '';
     }
@@ -76,7 +80,7 @@ class RestaurantsWire extends Component
     {
 
  $restaurants = Restaurant::latest('updated_at')->paginate(5);
- $restaurants = Restaurant::query()->latest('updated_at');
+ $restaurants = Restaurant::query()->with('categories')->latest('updated_at');;
  
         foreach ($this->searchColumns as $column => $value) {
             if (!empty($value)) {

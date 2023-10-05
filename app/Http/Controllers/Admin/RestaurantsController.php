@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use App\Exports\RestaurantsExport;
+use Maatwebsite\Excel\Excel;
+use App\Models\Category;
 
 class RestaurantsController extends Controller
 {
@@ -21,7 +24,10 @@ class RestaurantsController extends Controller
      */
     public function create()
     {
-        return view('admin.restaurants.create');
+        $restaurantCategories = Category::restaurantCategorytree();
+        return view('admin.restaurants.create', [
+            'restaurantCategories' => $restaurantCategories,
+        ]);
     }
 
     /**
@@ -43,10 +49,27 @@ class RestaurantsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+    //  public function edit($id)
+    //  {
+    //      $post = Post::with('categories')->find($id);
+    //      // $postCategories = Category::with('parent')->where('menu_id',1)->get();
+    //      $postCategories = Category::postCategoryTree();
+    //      return view('admin.posts.edit', compact('post', 'postCategories'));
+    //  }
+     
+    // public function edit(string $id)
+    // {
+    //     $restaurant =  Restaurant::findOrFail($id);
+
+    //     return view('admin.restaurants.edit',compact('restaurant'));
+    // }
+
+    public function edit($id)
     {
-        $restaurant =  Restaurant::findOrFail($id);
-        return view('admin.restaurants.edit',compact('restaurant'));
+        $restaurant = Restaurant::with('categories')->find($id);
+        $restaurantCategories = Category::restaurantCategorytree();
+        return view('admin.restaurants.edit', compact('restaurant', 'restaurantCategories'));
     }
 
     /**
@@ -69,5 +92,11 @@ class RestaurantsController extends Controller
     {
         
         return view('admin.restaurants.trash');
+    }
+
+    public function export()
+    {
+        return (new RestaurantsExport)->download('restaurants.csv', Excel::CSV, ['Content-Type' => 'text/csv']);
+
     }
 }

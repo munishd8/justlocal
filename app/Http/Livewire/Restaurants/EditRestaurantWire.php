@@ -14,6 +14,9 @@ class EditRestaurantWire extends Component
 
     public $name;
     public $address;
+    public $restaurantCategories;
+    public $categories = [];
+    public $parent_category;
     public $phone;
     public $email;
     public $website;
@@ -56,6 +59,8 @@ class EditRestaurantWire extends Component
         $this->email = $this->restaurant->email;
         $this->website = $this->restaurant->website;
         $this->img = $this->restaurant->images[0]['image'];
+        $this->parent_category = $this->restaurant->categories->pluck('id')->toArray();
+        $this->categories = $this->parent_category;
         // dd($this->img);
     }
 
@@ -66,6 +71,7 @@ class EditRestaurantWire extends Component
         $image = $this->img;
         
         $this->restaurant->update($validatedData);
+        $this->restaurant->categories()->sync($this->categories);
 
         if ($this->image) {
            $this->validate(['image' => 'image|mimes:jpeg,png,jpg,gif|max:2048']); // Add image validation
@@ -75,7 +81,7 @@ class EditRestaurantWire extends Component
                 unlink($oldUrl);
             }
             $extension  = $this->image->getClientOriginalExtension();
-        $path = $this->image->storeAs('images/restaurants',$this->restaurant->name.'-'.rand(100,999).'.'.$extension,'public');
+        $path = $this->image->storeAs('images/restaurants',str_replace(' ', '-', $this->restaurant->name).'-'.rand(100,999).'.'.$extension,'public');
 
     $imageModel = new Image();
     $imageModel->image = $path;

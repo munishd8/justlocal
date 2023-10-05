@@ -35,6 +35,7 @@ class DeathNotice extends Model
         return [
             'slug' => [
                 'source' => 'title',
+                'includeTrashed' => true,
             ]
         ];
     }

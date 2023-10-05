@@ -4,7 +4,8 @@
     <div class="card-tools">
         {{-- <div class="input-group input-group-sm" style="width: 100px;"> --}}
             <a href="{{ route('admin.restaurants.create') }}" class="btn btn-block btn-primary btn-flat float-right">Add New</a>
-            
+           
+             
         {{-- </div> --}}
     </div>
     </div>
@@ -46,6 +47,7 @@
     </th> --}}
     <th><input type="checkbox" wire:model="selectAll" wire:click="toggleSelectAll"></th>
     <th>Name</th>
+    <th>Categories</th>
     <th>Address</th>
     <th>Phone</th>
     <th>Email</th>
@@ -60,6 +62,12 @@
     <tr>
         <td><input type="checkbox" wire:model="selected" value="{{ $restaurant->id }}"></td>
     <td>{{ $restaurant->name }}</td>
+    <td>
+           @foreach($restaurant->categories as $category)
+        <a href="#" class="badge badge-info">{{ $category->name }}</a>
+        @endforeach 
+
+</td>
     <td>{{ $restaurant->address }}</td>
     <td>{{ $restaurant->phone }}</td>
     <td>{{ $restaurant->email }}</td>

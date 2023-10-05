@@ -31,6 +31,7 @@ class DirectoryListing extends Model
         return [
             'slug' => [
                 'source' => 'title',
+                'includeTrashed' => true,
             ]
         ];
     }
