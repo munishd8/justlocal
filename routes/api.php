@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\v1\LocalEat\LocalEatController;
 use App\Http\Controllers\Api\v1\PlanningApplication\PlanningApplicationController;
 use App\Http\Controllers\Api\v1\Restaurants\RestaurantsController;
 use App\Http\Controllers\Api\v1\Transports\TransportController;
-use App\Http\Controllers\Api\v1\Subsriber\SubsriberController;
+use App\Http\Controllers\Api\v1\Subscriber\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,10 @@ use App\Http\Controllers\Api\v1\Subsriber\SubsriberController;
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('auth/logout', [AuthController::class,'logout']);
-    Route::get('dashboard',[SubsriberController::class,'index']);
+    Route::get('dashboard',[SubscriberController::class,'index']);
     Route::post('auth/change-password', [AuthController::class,'changePassword']);
-
+    Route::get('favorite-posts',[SubscriberController::class,'favoritePosts']);
+    Route::post('add-favorite-posts',[SubscriberController::class,'addfavoritePosts']);
 });
 
 
