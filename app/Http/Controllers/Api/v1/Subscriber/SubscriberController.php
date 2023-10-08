@@ -33,5 +33,18 @@ return response()->json([
 
 }
 
+public function removeFromFavoritePosts($id)
+{
+    Favorite::findOrFail($id)
+        ->delete();
+ 
+return response()->json([
+    'message' => 'Post Successfully removed from favorite.'
+]);
+
+}
+
+
+
 
 }

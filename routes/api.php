@@ -33,12 +33,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('auth/change-password', [AuthController::class,'changePassword']);
     Route::get('favorite-posts',[SubscriberController::class,'favoritePosts']);
     Route::post('add-favorite-posts',[SubscriberController::class,'addfavoritePosts']);
+    Route::delete('remove-favorite-post/{id}',[SubscriberController::class,'removeFromFavoritePosts']);
 });
 
 
   Route::post('auth/login', [AuthController::class,'login']);
   Route::post('auth/register', [AuthController::class,'register']);
-  Route::post('auth/verify', [AuthController::class,'verify']);
+  Route::post('auth/veriFy', [AuthController::class,'verify']);
   Route::post('auth/reset-verify', [AuthController::class,'resetVerify']);
   Route::post('auth/forgot-password', [AuthController::class,'forgotPassword']);
   Route::post('auth/reset-forgot-password', [AuthController::class,'resetForgotPassword']);
